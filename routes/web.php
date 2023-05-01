@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SalidacomprobantesController;
+use App\Http\Controllers\ComprobantesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +35,11 @@ Route::get('/home',function(){
 //Comprobantes
  Route::get('/comprobantes/create',[SalidacomprobantesController::class,'create'])->middleware(['auth'])->name('comprobantes.create');
 //end Comprobantes
+
+
+//Comprobantes
+Route::get('/comprobantes/show/{nrocomp}/{nomemp}',[ComprobantesController::class,'show'])->middleware(['auth'])->name('comprobantes.show');
+//End Comprobantes
 
 
 Route::get('/usuarios/index', [UserController::class,'index'])->middleware(['auth'])->name('usuarios.index');

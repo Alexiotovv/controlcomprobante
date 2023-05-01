@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\comprobantes;
 use Illuminate\Http\Request;
-
+use DB;
 class ComprobantesController extends Controller
 {
     /**
@@ -34,9 +34,21 @@ class ComprobantesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(comprobantes $comprobantes)
+    public function show($nrocomp,$nomemp)
     {
-        //
+        if ($nrocomp=='-'){
+            $nrocomp='%';
+        }
+        if ($nomemp=='-'){
+            $nomemp='%';
+        }
+        $obj=DB::table('comprobantes')
+        ->where('comprobantes.numero','like','%'.$nrocomp.'%')
+        ->where('comprobantes.nombre','like','%'.$nomemp.'%')
+        ->limit(100)
+        ->get();
+        
+        return response()->json($obj);
     }
 
     /**

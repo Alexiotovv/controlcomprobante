@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\salidacomprobantes;
 use Illuminate\Http\Request;
-
+use DB;
 class SalidacomprobantesController extends Controller
 {
     /**
@@ -20,7 +20,9 @@ class SalidacomprobantesController extends Controller
      */
     public function create()
     {
-        return view('comprobantes.form_create');
+        $clientes=DB::table('clientes')
+        ->get();
+        return view('comprobantes.form_create',['clientes'=>$clientes]);
     }
 
     /**
