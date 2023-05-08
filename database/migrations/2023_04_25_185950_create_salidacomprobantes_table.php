@@ -16,8 +16,8 @@ return new class extends Migration
             $table->bigInteger('comprobantes_id')->unsigned();
             $table->foreign('comprobantes_id')->references('id')->on('comprobantes')->onDelete('cascade');
             $table->bigInteger('clientes_id')->unsigned();
-            $table->string('numero_cargo', 100)->nullable()->default('');
             $table->foreign('clientes_id')->references('id')->on('clientes')->onDelete('cascade');
+            $table->integer('numero_cargo')->default(0);
             $table->string('numero_oficio', 150)->nullable()->default('');
             $table->string('folios', 150)->nullable()->default('-');
             $table->date('fecha_salida')->nullable();

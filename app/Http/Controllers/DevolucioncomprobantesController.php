@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\devolucioncomprobantes;
+use App\Models\salidacomprobantes;
 use Illuminate\Http\Request;
 
 class DevolucioncomprobantesController extends Controller
@@ -28,7 +29,20 @@ class DevolucioncomprobantesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $cerrar=salidacomprobantes::findOrFail(request('idSalida'));
+        $cerrar->salida=0;
+        $cerrar->save();
+
+        $obj=new devolucioncomprobantes;
+        $obj->salidacomprobantes_id=request('idSalida');
+        $obj->fecha_devolucion=request('fecha_devolucion');
+        $obj->hora_devolucion=request('hora_devolucion');
+        $obj->comentario=request('comentario');
+        $obj->usuario_id=auth()->user()->id;
+        $obj->save();
+        $data=['Msje'=>'Ok'];
+        return response()->json($data);
+
     }
 
     /**

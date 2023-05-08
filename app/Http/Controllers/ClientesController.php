@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\clientes;
 use Illuminate\Http\Request;
+use DB;
 
 class ClientesController extends Controller
 {
@@ -20,7 +21,7 @@ class ClientesController extends Controller
      */
     public function create()
     {
-        //
+        return view('clientes.clientes_create');
     }
 
     /**
@@ -28,7 +29,11 @@ class ClientesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $obj=new clientes();
+        $obj->nombre=request('nombre');
+        $obj->save();
+        $data=['Mensaje'=>'ok'];
+        return response()->json($data);
     }
 
     /**
@@ -36,7 +41,9 @@ class ClientesController extends Controller
      */
     public function show(clientes $clientes)
     {
-        //
+        $clientes=DB::table('clientes')
+        ->get();
+        return response()->json($clientes);
     }
 
     /**

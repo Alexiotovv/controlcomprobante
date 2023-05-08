@@ -5,6 +5,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SalidacomprobantesController;
 use App\Http\Controllers\ComprobantesController;
+use App\Http\Controllers\ClientesController;
+use App\Http\Controllers\DevolucioncomprobantesController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -33,13 +36,36 @@ Route::get('/home',function(){
 })->middleware('auth')->name('home');
 
 //Comprobantes
- Route::get('/comprobantes/create',[SalidacomprobantesController::class,'create'])->middleware(['auth'])->name('comprobantes.create');
+Route::get('/comprobantes/show/{nrocomp}/{nomemp}',[ComprobantesController::class,'show'])->middleware(['auth'])->name('comprobantes.show');
+Route::get('/comprobantes/create/',[ComprobantesController::class,'create'])->middleware(['auth'])->name('comprobantes.create');
+Route::post('/comprobantes/store/',[ComprobantesController::class,'store'])->middleware(['auth'])->name('comprobantes.store');
+Route::post('/comprobantes/update/',[ComprobantesController::class,'update'])->middleware(['auth'])->name('comprobantes.update');
+Route::get('/comprobantes/edit/{id}',[ComprobantesController::class,'edit'])->middleware(['auth'])->name('comprobantes.edit');
+
+Route::get('/comprobantes/index/',[ComprobantesController::class,'index'])->middleware(['auth'])->name('comprobantes.index');
+Route::get('/comprobantes/filtrar/{num}/{nom}/{est}/{paq}',[ComprobantesController::class,'filtrar'])->middleware(['auth'])->name('comprobantes.filtrar');
 //end Comprobantes
 
+//SalidaComprobantes
+Route::get('/salidacomprobantes/create',[SalidacomprobantesController::class,'create'])->middleware(['auth'])->name('salidacomprobantes.create');
+Route::post('/salidacomprobantes/store',[SalidacomprobantesController::class,'store'])->middleware(['auth'])->name('salidacomprobantes.store');
+Route::post('/salidacomprobantes/update',[SalidacomprobantesController::class,'update'])->middleware(['auth'])->name('salidacomprobantes.update');
+Route::get('/salidacomprobantes/index',[SalidacomprobantesController::class,'index'])->middleware(['auth'])->name('salidacomprobantes.index');
+Route::get('/salidacomprobantes/show/{nrocargo}/{nrocomp}/{nrooficio}/{cliente}',[SalidacomprobantesController::class,'show'])->middleware(['auth'])->name('salidacomprobantes.show');
+Route::get('/salidacomprobantes/edit/{id}',[SalidacomprobantesController::class,'edit'])->middleware(['auth'])->name('salidacomprobantes.edit');
+//EndSalidaComprobantes
 
-//Comprobantes
-Route::get('/comprobantes/show/{nrocomp}/{nomemp}',[ComprobantesController::class,'show'])->middleware(['auth'])->name('comprobantes.show');
-//End Comprobantes
+
+//Devolucion Comprobantes
+Route::post('/devolucioncomprobantes/store',[DevolucioncomprobantesController::class,'store'])->middleware(['auth'])->name('devolucioncomprobantes.store');
+//End Devolucion Comprobantes
+
+
+//Clientes
+Route::get('/clientes/create/',[ClientesController::class,'create'])->middleware(['auth'])->name('clientes.create');
+Route::get('/clientes/show/',[ClientesController::class,'show'])->middleware(['auth'])->name('clientes.show');
+Route::post('/clientes/store/',[ClientesController::class,'store'])->middleware(['auth'])->name('clientes.store');
+//End Clientes
 
 
 Route::get('/usuarios/index', [UserController::class,'index'])->middleware(['auth'])->name('usuarios.index');

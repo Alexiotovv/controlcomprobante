@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('salidacomprobantes_id')->references('id')->on('salidacomprobantes')->onDelete('cascade');
             $table->date('fecha_devolucion')->nullable();
             $table->time('hora_devolucion')->nullable();
+            $table->string('comentario', 250)->nullable()->default('');
             $table->bigInteger('usuario_id')->unsigned();
             $table->foreign('usuario_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

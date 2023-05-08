@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('folios', 50)->nullable()->default('');
             $table->string('estante', 50)->nullable()->default('');
             $table->string('paquete', 50)->nullable()->default('');
+            $table->bigInteger('usuario_id')->unsigned();
+            $table->foreign('usuario_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

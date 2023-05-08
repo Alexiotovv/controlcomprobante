@@ -24,6 +24,7 @@
 	<link rel="stylesheet" href="../../../assets/css/dark-theme.css" />
 	<link rel="stylesheet" href="../../../assets/css/semi-dark.css" />
 	<link rel="stylesheet" href="../../../assets/css/header-colors.css" />
+    
     @yield('extra_css')
     <title>Personal</title>
 </head>
@@ -45,7 +46,7 @@
                         <img src="../../../assets/images/logo-icon.png" class="logo-icon" alt="logo icon">
                     </div>
                     <div>
-                        <h4 class="logo-text">Conprobantes</h4>
+                        <h4 class="logo-text">Comprobantes</h4>
                     </div>
                     <div class="toggle-icon ms-auto"><i class='bx bx-arrow-to-left'></i>
                     </div>
@@ -59,10 +60,17 @@
                             <div class="menu-title">Control</div>
                         </a>
                         <ul>
-                            <li> <a href="{{route('comprobantes.create')}}"><i class="bx bx-right-arrow-alt"></i>Registrar Salida Comprobantes</a>
+                            <li> <a href="{{route('salidacomprobantes.create')}}"><i class="bx bx-right-arrow-alt"></i>Registrar Salida Comprobantes</a>
                             </li>
-                            <li> <a href="#"><i class="bx bx-right-arrow-alt"></i>Relación de Comprobantes</a>
-                            </li>             
+                            <li> <a href="{{route('salidacomprobantes.index')}}"><i class="bx bx-right-arrow-alt"></i>Listar Salidas Comprobantes</a>
+                            </li>
+                            <li> <a href="{{route('comprobantes.create')}}"><i class="bx bx-right-arrow-alt"></i>Registrar Comprobantes</a>
+                            </li>
+                            <li> <a href="{{route('comprobantes.index')}}"><i class="bx bx-right-arrow-alt"></i>Listar Comprobantes</a>
+                            </li>
+                            <li> <a href="{{route('clientes.create')}}"><i class="bx bx-right-arrow-alt"></i>Registrar Clientes</a>
+                            </li> 
+                            
                         </ul>
                     </li>
 
@@ -456,6 +464,7 @@
 {{-- <script src="../../../assets/js/index.js"></script> --}}
 <!--app JS-->
 <script src="../../../assets/js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @yield('extra_js')
 

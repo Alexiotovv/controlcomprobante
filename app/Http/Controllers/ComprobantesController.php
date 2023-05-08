@@ -12,7 +12,7 @@ class ComprobantesController extends Controller
      */
     public function index()
     {
-        //
+        return view('comprobantes.comprobantes_index');
     }
 
     /**
@@ -20,7 +20,7 @@ class ComprobantesController extends Controller
      */
     public function create()
     {
-        //
+        return view('comprobantes.comprobante_create');
     }
 
     /**
@@ -28,7 +28,20 @@ class ComprobantesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $obj=new Comprobantes();
+        $obj->numero=request('numero');
+        $obj->fecha=request('fecha');
+        $obj->nombre=request('nombre');
+        $obj->importe=request('importe');
+        $obj->siaf=request('siaf');
+        $obj->fuentefto=request('fuentefto');
+        $obj->folios=request('folios');
+        $obj->estante=request('estante');
+        $obj->paquete=request('paquete');
+        $obj->usuario_id=auth()->user()->id;
+        $obj->save();
+        $data=['Msje'=>'ok'];
+        return response()->json($data);
     }
 
     /**
@@ -45,18 +58,56 @@ class ComprobantesController extends Controller
         $obj=DB::table('comprobantes')
         ->where('comprobantes.numero','like','%'.$nrocomp.'%')
         ->where('comprobantes.nombre','like','%'.$nomemp.'%')
-        ->limit(100)
         ->get();
         
         return response()->json($obj);
     }
 
+    public function filtrar($num,$nom,$est,$paq)
+    {
+        // $num=asignarPorcentaje($num);
+        // $nom=asignarPorcentaje($nom);
+        // $est=asignarPorcentaje($est);
+        // $paq=asignarPorcentaje($paq);
+        if ($num=='-'){
+            $num='%';
+        }
+        if ($nom=='-'){
+            $nom='%';
+        }
+        if ($est=='-'){
+            $est='%';
+        }
+        if ($paq=='-'){
+            $paq='%';
+        }
+
+        $obj=DB::table('comprobantes')
+        ->where('comprobantes.numero','like','%'.$num.'%')
+        ->where('comprobantes.nombre','like','%'.$nom.'%')
+        ->where('comprobantes.estante','like','%'.$est.'%')
+        ->where('comprobantes.paquete','like','%'.$paq.'%')
+        ->get();
+        
+        return response()->json($obj);
+    }
+
+    // public function asignarPorcentaje($valor)
+    // {
+    //     if ($valor=='-') {
+    //         return ('%');
+    //     }else{
+    //         return ($valor);
+    //     }
+    // }
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(comprobantes $comprobantes)
+    public function edit($id)
     {
-        //
+        $obj=Comprobantes::find($id)
+        ->get();
+        return response()->json($obj);
     }
 
     /**
@@ -64,7 +115,20 @@ class ComprobantesController extends Controller
      */
     public function update(Request $request, comprobantes $comprobantes)
     {
-        //
+        $id=request('idComprobante');
+        $obj=Comprobantes::findOrFail($id);
+        $obj->numero=request('numero');
+        $obj->fecha=request('fecha');
+        $obj->nombre=request('nombre');
+        $obj->importe=request('importe');
+        $obj->siaf=request('siaf');
+        $obj->fuentefto=request('fuentefto');
+        $obj->folios=request('folios');
+        $obj->estante=request('estante');
+        $obj->paquete=request('paquete');
+        $obj->save();
+        $data=['Msje'=>'ok'];
+        return response()->json($data);
     }
 
     /**

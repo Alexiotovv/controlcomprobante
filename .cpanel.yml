@@ -1,0 +1,8 @@
+---
+  deployment:
+    tasks:
+      - export DEPLOYPATH=/home/gorel/public_html/controlboletas.regionloreto.gob.pe/
+      - /bin/rsync -av public/ $DEPLOYPATH
+      - export DEPLOYPATH=/home/gorel/web_controlboletas/
+      - /bin/rsync -av ./ $DEPLOYPATH
+
