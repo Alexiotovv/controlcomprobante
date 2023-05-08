@@ -5,7 +5,7 @@ $("#btnGuardarCliente").on("click",function (e) {
     }else{
         e.preventDefault()
         ds=$("#frmCliente").serialize();
-        ru="/clientes/store/";
+        ru="/clientes/store";
         mje="Cliente Registrado";
         dt="";
         GuardarRegistro(ds,ru,mje,dt);

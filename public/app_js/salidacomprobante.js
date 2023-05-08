@@ -1,7 +1,7 @@
 $("#btnActualizasSalidaComprobante").on("click",function (e) {
     e.preventDefault();
     ds=$("#frmEditSalidaComprobante").serialize();
-    ru="/salidacomprobantes/update/";
+    ru="/salidacomprobantes/update";
     mje="Salida de Comprobante Actualizado";
     dt="";
     GuardarRegistro(ds,ru,mje,dt);

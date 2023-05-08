@@ -35,7 +35,7 @@ $("#btnActualizarComprobante").on("click",function (e) {
     }else{
         e.preventDefault()
         ds=$("#frmEditComprobante").serialize();
-        ru="/comprobantes/update/";
+        ru="/comprobantes/update";
         mje="Comprobante Actualizado";
         dt="";
         GuardarRegistro(ds,ru,mje,dt);
@@ -107,7 +107,7 @@ $("#btnGuardarComprobante").on("click",function (e) {
     }else{
         e.preventDefault()
         ds=$("#frmComprobante").serialize();
-        ru="/comprobantes/store/";
+        ru="/comprobantes/store";
         mje="Comprobante Guardado";
         dt="";
         GuardarRegistro(ds,ru,mje,dt);
