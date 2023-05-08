@@ -1,8 +1,8 @@
 ---
   deployment:
     tasks:
-      - export DEPLOYPATH=/home/gorel/public_html/controlcomprobante.regionloreto.gob.pe/
+      - export DEPLOYPATH=/home/aywsolutionweli/public_html/controlcomprobante.aywsolution.com/
       - /bin/rsync -av public/ $DEPLOYPATH
-      - export DEPLOYPATH=/home/gorel/web_controlcomprobante/
+      - export DEPLOYPATH=/home/aywsolutionweli/web_controlcomprobante/
       - /bin/rsync -av ./ $DEPLOYPATH
 
