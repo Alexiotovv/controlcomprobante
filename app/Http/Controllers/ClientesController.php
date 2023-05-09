@@ -11,9 +11,20 @@ class ClientesController extends Controller
     /**
      * Display a listing of the resource.
      */
+    
+
+    
     public function index()
     {
-        //
+        return view('clientes.clientes_index');
+    }
+
+
+    public function listar(Request $request)
+    {
+        $clientes=DB::table('clientes')
+        ->get();
+        return datatables()->of($clientes)->tojson();
     }
 
     /**
@@ -57,9 +68,14 @@ class ClientesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, clientes $clientes)
+    public function update(Request $request)
     {
-        //
+        $id=request('idCliente');
+        $obj=clientes::findOrFail($id);
+        $obj->nombre=request('nombre');
+        $obj->save();
+        $data=['Mensaje'=>'ok'];
+        return response()->json($data);
     }
 
     /**

@@ -63,8 +63,11 @@ Route::post('/devolucioncomprobantes/store',[DevolucioncomprobantesController::c
 
 //Clientes
 Route::get('/clientes/create/',[ClientesController::class,'create'])->middleware(['auth'])->name('clientes.create');
+Route::get('/clientes/index',[ClientesController::class,'index'])->middleware(['auth'])->name('clientes.index');
+Route::get('/clientes/listar',[ClientesController::class,'listar'])->middleware(['auth'])->name('clientes.listar');
 Route::get('/clientes/show/',[ClientesController::class,'show'])->middleware(['auth'])->name('clientes.show');
 Route::post('/clientes/store/',[ClientesController::class,'store'])->middleware(['auth'])->name('clientes.store');
+Route::post('/clientes/update',[ClientesController::class,'update'])->middleware(['auth'])->name('clientes.update');
 //End Clientes
 
 

@@ -25,6 +25,8 @@
 	<link rel="stylesheet" href="../../../assets/css/semi-dark.css" />
 	<link rel="stylesheet" href="../../../assets/css/header-colors.css" />
     
+    
+
     @yield('extra_css')
     <title>Personal</title>
 </head>
@@ -68,8 +70,10 @@
                             </li>
                             <li> <a href="{{route('comprobantes.index')}}"><i class="bx bx-right-arrow-alt"></i>Listar Comprobantes</a>
                             </li>
-                            <li> <a href="{{route('clientes.create')}}"><i class="bx bx-right-arrow-alt"></i>Registrar Clientes</a>
-                            </li> 
+                            {{-- <li> <a href="{{route('clientes.create')}}"><i class="bx bx-right-arrow-alt"></i>Registrar Clientes</a>
+                            </li> --}}
+                            <li> <a href="{{route('clientes.index')}}"><i class="bx bx-right-arrow-alt"></i>Listar Clientes</a>
+                            </li>
                             
                         </ul>
                     </li>
