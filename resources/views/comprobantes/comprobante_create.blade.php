@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-2">
                     <label for="">Número</label>
-                    <input type="number" class="form-control" maxlength="50" id="numero" name="numero" required>
+                    <input type="text" class="form-control" maxlength="50" id="numero" name="numero" required>
                 </div>
                 <div class="col-md-2">
                     <label for="">Fecha</label>

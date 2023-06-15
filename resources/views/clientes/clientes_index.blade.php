@@ -3,7 +3,7 @@
 @section('extra_css')
     {{-- <link rel="stylesheet" href="../../../assets/plugins/notifications/css/lobibox.min.css" /> --}}
     <link rel="stylesheet" href="../../../assets/plugins/datatable/css/dataTables.bootstrap5.min.css" />
-    dataTables.bootstrap5.min
+  
 @endsection
 
 @section('content')

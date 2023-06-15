@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('comprobantes', function (Blueprint $table) {
             $table->id();
-            $table->integer('numero')->unique();
+            $table->string('numero', 250)->unique()->default('');
             $table->date('fecha')->nullable();
             $table->string('nombre', 250)->default('');
             $table->decimal('importe', 10, 2)->nullable()->default(0.00);

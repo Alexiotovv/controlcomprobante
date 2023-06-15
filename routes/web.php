@@ -71,6 +71,8 @@ Route::post('/clientes/update',[ClientesController::class,'update'])->middleware
 //End Clientes
 
 
+
+//Usuarios
 Route::get('/usuarios/index', [UserController::class,'index'])->middleware(['auth'])->name('usuarios.index');
 Route::get('/usuarios/edit/{id}', [UserController::class,'edit'])->middleware(['auth'])->name('usuarios.edit');
 Route::post('/usuarios/update', [UserController::class,'update'])->middleware(['auth'])->name('usuarios.update');
