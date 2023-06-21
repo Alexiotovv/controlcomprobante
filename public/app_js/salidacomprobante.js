@@ -62,6 +62,7 @@ function BuscarSalidasComprobantes(){
     if (numero_oficio.trim()=='') {
         numero_oficio='-';
     }
+    
     $.ajax({
         type: "GET",
         url: "/salidacomprobantes/show/"+numero_cargo+"/"+numero_comp+"/"+numero_oficio+"/"+institucion,

@@ -55,6 +55,20 @@ $("#btnFiltrarComprobantes").on("click",function (e) {
         nombre_comprobante=asignarGuion($("#nombre_comprobante").val().trim());
         estante_comprobante=asignarGuion($("#estante_comprobante").val().trim());
         paquete_comprobante=asignarGuion($("#paquete_comprobante").val().trim());
+
+        if (numero_comprobante.trim()=='') {
+            numero_comprobante='-';
+        }
+        if (nombre_comprobante.trim()=='') {
+            nombre_comprobante='-';
+        }
+        if (estante_comprobante.trim()=='') {
+            estante_comprobante='-';
+        }
+        if (paquete_comprobante.trim()=='') {
+            paquete_comprobante='-';
+        }
+
         $.ajax({
             type: "GET",
             url: "/comprobantes/filtrar/"+numero_comprobante+"/"+nombre_comprobante+"/"+estante_comprobante+"/"+paquete_comprobante,
@@ -63,7 +77,7 @@ $("#btnFiltrarComprobantes").on("click",function (e) {
                 $("#spinner_filtrar_comprobantes").prop('hidden',false);
             },
             success: function (response) {
-                console.log(response);
+                
                 $("#DTComprobantes tbody").html("");
                 response.forEach(element => {
                     $("#DTComprobantes").append('<tr>'+
