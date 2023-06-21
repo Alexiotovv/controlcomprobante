@@ -69,6 +69,8 @@ $("#btnFiltrarComprobantes").on("click",function (e) {
             paquete_comprobante='-';
         }
 
+        
+
         $.ajax({
             type: "GET",
             url: "/comprobantes/filtrar/"+numero_comprobante+"/"+nombre_comprobante+"/"+estante_comprobante+"/"+paquete_comprobante,
@@ -77,7 +79,7 @@ $("#btnFiltrarComprobantes").on("click",function (e) {
                 $("#spinner_filtrar_comprobantes").prop('hidden',false);
             },
             success: function (response) {
-                
+                console.log(response);        
                 $("#DTComprobantes tbody").html("");
                 response.forEach(element => {
                     $("#DTComprobantes").append('<tr>'+
