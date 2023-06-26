@@ -68,7 +68,7 @@ class ComprobantesController extends Controller
         $texto=$request->get('txtBuscar');
         $comprobantes=comprobantes::where('nombre', 'like','%'.$texto.'%')
         ->orderByDesc('comprobantes.id')
-        ->paginate(2);
+        ->paginate(50);
         return view('comprobantes.comprobantes_listar',['comprobantes'=>$comprobantes,'texto'=>$texto]);
     }
 
