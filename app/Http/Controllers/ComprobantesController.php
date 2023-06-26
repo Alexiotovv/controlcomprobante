@@ -86,7 +86,9 @@ class ComprobantesController extends Controller
         ->where('comprobantes.numero','like','%'.$num.'%')
         ->where('comprobantes.nombre','like','%'.$nom.'%')
         ->where('comprobantes.estante','like','%'.$est.'%')
+        ->orwhere('comprobantes.estante','=',NULL)
         ->where('comprobantes.paquete','like','%'.$paq.'%')
+        ->orwhere('comprobantes.paquete','=',NULL)
         ->get();
         
         return response()->json($obj);
