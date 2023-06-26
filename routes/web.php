@@ -44,6 +44,8 @@ Route::get('/comprobantes/edit/{id}',[ComprobantesController::class,'edit'])->mi
 
 Route::get('/comprobantes/index/',[ComprobantesController::class,'index'])->middleware(['auth'])->name('comprobantes.index');
 Route::get('/comprobantes/filtrar/{num}/{nom}/{est}/{paq}',[ComprobantesController::class,'filtrar'])->middleware(['auth'])->name('comprobantes.filtrar');
+
+Route::get('/comprobantes/listar/',[ComprobantesController::class,'listar'])->middleware(['auth'])->name('comprobantes.listar');
 //end Comprobantes
 
 //SalidaComprobantes

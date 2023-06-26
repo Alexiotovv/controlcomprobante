@@ -9,7 +9,7 @@ $(document).on("click",".btnEditarComprobante",function (e){
         url: "/comprobantes/edit/"+id,
         dataType: "json",
         success: function (response) {
-            console.log(response);
+            
             $("#numero").val(response.numero);
             $("#nombre").val(response.nombre);
             $("#importe").val(response.importe);

@@ -63,12 +63,18 @@ class ComprobantesController extends Controller
         return response()->json($obj);
     }
 
+
+    function listar(Request $request) {
+        $texto=$request->get('txtBuscar');
+        $comprobantes=comprobantes::where('nombre', 'like','%'.$texto.'%')
+        ->orderByDesc('comprobantes.id')
+        ->paginate(2);
+        return view('comprobantes.comprobantes_listar',['comprobantes'=>$comprobantes,'texto'=>$texto]);
+    }
+
     public function filtrar($num,$nom,$est,$paq)
     {
-        // $num=asignarPorcentaje($num);
-        // $nom=asignarPorcentaje($nom);
-        // $est=asignarPorcentaje($est);
-        // $paq=asignarPorcentaje($paq);
+
         if ($num=='-'){
             $num='%';
         }
