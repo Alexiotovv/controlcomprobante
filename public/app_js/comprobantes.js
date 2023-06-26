@@ -9,16 +9,16 @@ $(document).on("click",".btnEditarComprobante",function (e){
         url: "/comprobantes/edit/"+id,
         dataType: "json",
         success: function (response) {
-            
-            $("#numero").val(response[0].numero);
-            $("#nombre").val(response[0].nombre);
-            $("#importe").val(response[0].importe);
-            $("#fecha").val(response[0].fecha);
-            $("#siaf").val(response[0].siaf);
-            $("#fuentefto").val(response[0].fuentefto);
-            $("#folios").val(response[0].folios);
-            $("#estante").val(response[0].estante);
-            $("#paquete").val(response[0].paquete);
+            console.log(response);
+            $("#numero").val(response.numero);
+            $("#nombre").val(response.nombre);
+            $("#importe").val(response.importe);
+            $("#fecha").val(response.fecha);
+            $("#siaf").val(response.siaf);
+            $("#fuentefto").val(response.fuentefto);
+            $("#folios").val(response.folios);
+            $("#estante").val(response.estante);
+            $("#paquete").val(response.paquete);
         }
     });
     $("#modalEditarComprobante").modal('show');
@@ -79,7 +79,7 @@ $("#btnFiltrarComprobantes").on("click",function (e) {
                 $("#spinner_filtrar_comprobantes").prop('hidden',false);
             },
             success: function (response) {
-                console.log(response);        
+                    
                 $("#DTComprobantes tbody").html("");
                 response.forEach(element => {
                     $("#DTComprobantes").append('<tr>'+

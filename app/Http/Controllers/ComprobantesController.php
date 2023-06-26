@@ -107,8 +107,7 @@ class ComprobantesController extends Controller
      */
     public function edit($id)
     {
-        $obj=Comprobantes::find($id)
-        ->get();
+        $obj=Comprobantes::find($id);
         return response()->json($obj);
     }
 
