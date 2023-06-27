@@ -28,19 +28,26 @@ class ComprobantesController extends Controller
      */
     public function store(Request $request)
     {
-        $obj=new Comprobantes();
-        $obj->numero=request('numero');
-        $obj->fecha=request('fecha');
-        $obj->nombre=request('nombre');
-        $obj->importe=request('importe');
-        $obj->siaf=request('siaf');
-        $obj->fuentefto=request('fuentefto');
-        $obj->folios=request('folios');
-        $obj->estante=request('estante');
-        $obj->paquete=request('paquete');
-        $obj->usuario_id=auth()->user()->id;
-        $obj->save();
-        $data=['Msje'=>'ok'];
+        try {
+            //code...
+            $obj=new Comprobantes();
+            $obj->numero=request('numero');
+            $obj->fecha=request('fecha');
+            $obj->nombre=request('nombre');
+            $obj->importe=request('importe');
+            $obj->siaf=request('siaf');
+            $obj->fuentefto=request('fuentefto');
+            $obj->folios=request('folios');
+            $obj->estante=request('estante');
+            $obj->paquete=request('paquete');
+            $obj->usuario_id=auth()->user()->id;
+            $obj->save();
+            $data=['Msje'=>'ok'];
+        } catch (\Throwable $th) {
+            //throw $th;
+            $data=['Msje'=>$th];
+        }
+        
         return response()->json($data);
     }
 

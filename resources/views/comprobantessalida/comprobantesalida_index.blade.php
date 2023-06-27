@@ -17,7 +17,7 @@ c
                 </div>
                 <div class="col-md-2">
                     <label for="">Número de Comprobante</label>
-                    <input type="number" class="form-control" maxlength="50" id="numero_comp" name="numero_comp">
+                    <input type="text" class="form-control" maxlength="50" id="numero_comp" name="numero_comp">
                 </div>
                 <div class="col-md-2">
                     <label for="">Número de Oficio</label>
@@ -74,5 +74,14 @@ c
     <script src="../../../app_js/crud.js"></script>    
     <script src="../../../app_js/salidacomprobante.js"></script>
     <script src="../../../app_js/devolucioncomprobante.js"></script>
-    
+    <script>
+        $("#numero_cargo").keypress(function(e) {
+            if (e.which === 13) {
+                if ($("#numero_cargo").val().trim() ===! '') {   
+                    e.preventDefault();
+                    $("#numero_comp").focus();
+                }
+            }
+        });
+    </script>
 @endsection

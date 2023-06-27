@@ -189,7 +189,7 @@ function LimpiarForm(){
     $("#folios").val('');
     $("#estante").val('');
     $("#paquete").val('');
-
+    $("#nro_cargo").val('');
     $("#nro_oficio").val('');
     $("#cant_folios").val('');
     // $("#fecha_salida").val('');

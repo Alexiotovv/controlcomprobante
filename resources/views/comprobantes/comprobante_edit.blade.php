@@ -32,23 +32,23 @@
                         </div>
                         <div class="col-md-2">
                             <label for="">SIAF</label>
-                            <input type="number" class="form-control" maxlength="50" id="siaf" name="siaf" required>
+                            <input type="text" class="form-control" maxlength="50" id="siaf" name="siaf" required>
                         </div>
                         <div class="col-md-2">
                             <label for="">Fte. Fmto.</label>
-                            <input type="number" class="form-control" maxlength="20" id="fuentefto" name="fuentefto">
+                            <input type="text" class="form-control" maxlength="20" id="fuentefto" name="fuentefto">
                         </div>
                         <div class="col-md-2">
                             <label for="">Folio.</label>
-                            <input type="number" class="form-control" maxlength="20" id="folios" name="folios">
+                            <input type="text" class="form-control" maxlength="20" id="folios" name="folios" placeholder="000-000">
                         </div>
                         <div class="col-md-2">
                             <label for="">Estante</label>
-                            <input type="number" class="form-control" maxlength="50" id="estante" name="estante">
+                            <input type="text" class="form-control" maxlength="50" id="estante" name="estante">
                         </div>
                         <div class="col-md-2">
                             <label for="">Paquete</label>
-                            <input type="number" class="form-control" maxlength="50" id="paquete" name="paquete">
+                            <input type="text" class="form-control" maxlength="50" id="paquete" name="paquete">
                         </div>
                 
                     </div>

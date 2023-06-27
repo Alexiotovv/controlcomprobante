@@ -131,6 +131,35 @@
 	<script src="../../../assets/plugins/notifications/js/notification-custom-script.js"></script>
 
     <script>
+        
+        $("#nro_cargo").keypress(function(e) {
+            if (e.which === 13) {
+                if ($("#nro_cargo").val().trim() ===! '') {   
+                    e.preventDefault();
+                    $("#nro_oficio").focus();
+                }
+            }
+        });
+
+        $("#nro_oficio").keypress(function(e) {
+            if (e.which === 13) {
+                if ($("#nro_oficio").val().trim() ===! '') {   
+                    e.preventDefault();
+                    $("#folio").focus();
+                }
+            }
+        });
+
+        $("#folio").keypress(function(e) {
+            if (e.which === 13) {
+                if ($("#folio").val().trim() ===! '') {   
+                    e.preventDefault();
+                    $("#btnGuardarSalida").focus();
+                }
+            }
+        });
+
+
         $("#cant_folios").mask("000-000");
 
         setInterval(muestrahora, 1000);

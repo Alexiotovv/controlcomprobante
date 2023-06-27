@@ -119,7 +119,10 @@ $("#btnGuardarComprobante").on("click",function (e) {
     nom=$("#nombre").val();
     importe=$("#importe").val();
     siaf=$("#siaf").val();
-    if (num.trim()=='' || nom.trim()=='' || importe.trim()=='' || siaf.trim()=='') {
+    fuentefto=$("#fuentefto").val();
+    folios=$("#folios").val();
+    paquete=$("#paquete").val();
+    if (num.trim()=='' || nom.trim()=='' || importe.trim()=='' || siaf.trim()==''||fuentefto.trim()==''||folios.trim()==''||paquete.trim()=='') {
         //no hace nada
     }else{
         e.preventDefault()
@@ -128,9 +131,7 @@ $("#btnGuardarComprobante").on("click",function (e) {
         mje="Comprobante Guardado";
         dt="";
         GuardarRegistro(ds,ru,mje,dt);
-        
     }
-    
 });
 
 

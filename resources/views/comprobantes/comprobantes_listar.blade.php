@@ -57,7 +57,10 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $comprobantes->links() !!}
+                {{-- {!! $comprobantes->links() !!} --}}
+                {{ $comprobantes->onEachSide(5)->links() }}
+
+
             </div>
         </form>
     </div>
