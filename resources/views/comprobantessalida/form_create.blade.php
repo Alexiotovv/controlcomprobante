@@ -86,7 +86,7 @@
                 </div>
                 <div class="col-md-2">
                     <label for="">Nro. Oficio</label>
-                    <input type="number" class="form-control " name="nro_oficio" id="nro_oficio" required>
+                    <input type="text" class="form-control " name="nro_oficio" id="nro_oficio" required>
                 </div>
                 <div class="col-md-2">
                     <label for="">Folio(s)</label>
