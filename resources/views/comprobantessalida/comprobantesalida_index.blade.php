@@ -21,7 +21,7 @@ c
                 </div>
                 <div class="col-md-2">
                     <label for="">Número de Oficio</label>
-                    <input type="number" class="form-control" maxlength="50" id="numero_oficio" name="numero_oficio">
+                    <input type="text" class="form-control" maxlength="50" id="numero_oficio" name="numero_oficio">
                 </div>
                 <div class="col-md-2">
                     <label for="">Institución</label>
