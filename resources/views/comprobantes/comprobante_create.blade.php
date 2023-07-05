@@ -40,15 +40,15 @@
                 </div>
                 <div class="col-md-2">
                     <label for="">Folio.</label>
-                    <input type="text" class="form-control" maxlength="20" id="folios" name="folios" placeholder="000-000" required>
+                    <input type="text" class="form-control" maxlength="20" id="folios" name="folios" placeholder="000-000" value="000-000" required>
                 </div>
                 <div class="col-md-2">
                     <label for="">Estante</label>
-                    <input type="text" class="form-control" maxlength="50" id="estante" name="estante" required>
+                    <input type="text" class="form-control" maxlength="50" id="estante" name="estante" value="0" required>
                 </div>
                 <div class="col-md-2">
                     <label for="">Paquete</label>
-                    <input type="text" class="form-control" maxlength="50" id="paquete" name="paquete" required>
+                    <input type="text" class="form-control" maxlength="50" id="paquete" name="paquete" value="0" required>
                 </div>
 
             </div>

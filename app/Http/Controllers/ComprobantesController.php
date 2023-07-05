@@ -82,6 +82,7 @@ class ComprobantesController extends Controller
     public function filtrar($num,$nom,$est,$paq)
     {
 
+        $operador='=';
         if ($num=='-'){
             $num='%';
         }
@@ -95,13 +96,10 @@ class ComprobantesController extends Controller
             $paq='%';
         }
 
-        $obj=DB::table('comprobantes')
-        ->where('comprobantes.numero','like','%'.$num.'%')
+        $obj=Comprobantes::where('comprobantes.numero','like','%'.$num.'%')
         ->where('comprobantes.nombre','like','%'.$nom.'%')
         ->where('comprobantes.estante','like','%'.$est.'%')
-        ->orwhere('comprobantes.estante','=',NULL)
         ->where('comprobantes.paquete','like','%'.$paq.'%')
-        ->orwhere('comprobantes.paquete','=',NULL)
         ->get();
         
         return response()->json($obj);

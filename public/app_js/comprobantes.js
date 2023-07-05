@@ -56,18 +56,18 @@ $("#btnFiltrarComprobantes").on("click",function (e) {
         estante_comprobante=asignarGuion($("#estante_comprobante").val().trim());
         paquete_comprobante=asignarGuion($("#paquete_comprobante").val().trim());
 
-        if (numero_comprobante.trim()=='') {
-            numero_comprobante='-';
-        }
-        if (nombre_comprobante.trim()=='') {
-            nombre_comprobante='-';
-        }
-        if (estante_comprobante.trim()=='') {
-            estante_comprobante='-';
-        }
-        if (paquete_comprobante.trim()=='') {
-            paquete_comprobante='-';
-        }
+        // if (numero_comprobante.trim()=='') {
+        //     numero_comprobante='-';
+        // }
+        // if (nombre_comprobante.trim()=='') {
+        //     nombre_comprobante='-';
+        // }
+        // if (estante_comprobante.trim()=='') {
+        //     estante_comprobante='-';
+        // }
+        // if (paquete_comprobante.trim()=='') {
+        //     paquete_comprobante='-';
+        // }
 
         
 
