@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-md-2">
                     <label for="">Folio.</label>
-                    <input type="text" class="form-control" maxlength="20" id="folios" name="folios" placeholder="000-000" value="000-000" required>
+                    <input type="text" class="form-control" maxlength="20" id="folios" name="folios" placeholder="000000-000000" value="000000-000000" required>
                 </div>
                 <div class="col-md-2">
                     <label for="">Estante</label>
@@ -75,7 +75,7 @@
 	<script src="../../../assets/plugins/notifications/js/notifications.min.js"></script>
 	<script src="../../../assets/plugins/notifications/js/notification-custom-script.js"></script> --}}
     <script>
-        $("#folios").mask("000-000");
+        $("#folios").mask("000000-000000");
 
         $("#numero").keypress(function(e) {
             if (e.which === 13) {
