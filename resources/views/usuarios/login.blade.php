@@ -21,7 +21,7 @@
                         <div class="mb-4 text-center">
                             {{-- <img src="assets/images/logo-img.png" width="180" alt="" /> --}}
                             <br>
-                            <h3>Sistema de Control de Boletas</h3>
+                            <h3>Control de Boletas</h3>
                         </div>
                         <div class="card">
                             <div class="card-body">
