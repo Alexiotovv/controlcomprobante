@@ -42,7 +42,6 @@ class DevolucioncomprobantesController extends Controller
         $obj->save();
         $data=['Msje'=>'Ok'];
         return response()->json($data);
-
     }
 
     /**

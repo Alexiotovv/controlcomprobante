@@ -2,6 +2,8 @@
     
 @section('extra_css')
     <link rel="stylesheet" href="../../../assets/plugins/notifications/css/lobibox.min.css" />
+    <link href="assets/css/icons.css" rel="stylesheet">
+
 @endsection
 
 @section('content')
@@ -21,51 +23,34 @@
             </div>
             <div class="col-md-4">
                 <button class="btn btn-primary" id="btnBuscarComprobante"><i class="bx bx-search"></i> Buscar Comprobante</button>
-
             </div>
         </div>
         
-        <form action="" method="POST" id="frmSalidaComprobante">@csrf
-            <div class="row">
-                <div class="col-md-2">
-                    <input type="text" name="id_comprobante" id="id_comprobante" hidden>
-                    <label for="">N° Comprobante</label>
-                    <input type="text" class="form-control" name="numero_comprobante" id="numero_comprobante" required disabled>
-                </div>
-                <div class="col-md-2">
-                    <label for="">Fecha</label>
-                    <input type="date" class="form-control modo-lectura" name="fecha" id="fecha" disabled>
-                </div>
-                <div class="col-md-4">
-                    <label for="">Nombre Empresa</label>
-                    <input type="text" class="form-control modo-lectura" name="nombre" id="nombre" disabled>
-                </div>
-                <div class="col-md-2">
-                    <label for="">Importe</label>
-                    <input type="number" step="0.01" class="form-control modo-lectura" name="importe" id="importe" disabled>
-                </div>
-                <div class="col-md-2">
-                    <label for="">N° SIAF</label>
-                    <input type="text" class="form-control modo-lectura" name="numero_siaf" id="numero_siaf" disabled>
-                </div>
-                <div class="col-md-2">
-                    <label for="">Fte. Fto.</label>
-                    <input type="text" class="form-control modo-lectura" name="fuente_fmto" id="fuente_fmto" disabled>
-                </div>
-                <div class="col-md-2">
-                    <label for="">Folios</label>
-                    <input type="text" class="form-control modo-lectura" name="folios" id="folios" disabled>
-                </div>
-                <div class="col-md-2">
-                    <label for="">Estante</label>
-                    <input type="text" class="form-control modo-lectura" name="estante" id="estante" disabled>
-                </div>
-                <div class="col-md-2">
-                    <label for="">Paquete</label>
-                    <input type="text" class="form-control modo-lectura" name="paquete" id="paquete" disabled>
-                    <br>
-                </div>
-            </div>
+
+        <table class="table table-responsive table-stripped" id="DTComprobantesSeleccionado">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>idComp.</th>
+                    <th>Quitar</th>
+                    <th>NumeroComprobante</th>
+                    <th>Fecha</th>
+                    <th>NombreEmpresa</th>
+                    <th>Importe</th>
+                    <th>NumeroSiaf</th>
+                    <th>Fte.Finan</th>
+                    <th>Folio</th>
+                    <th>Estante</th>
+                    <th>Paquete</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+
+        <form action="" id="frmSalidaComprobante">@csrf
     
             <div class="row">
                 <hr>
@@ -73,9 +58,7 @@
                 <div class="col-md-4">
                     <label for="">Seleccion Institución</label>
                     <div class="input-group">
-    
                         <select name="cliente" id="cliente" class="form-select" required>
-                            
                         </select>
                         <a class="btn btn-primary btn-md" id="btnAgregarInstitucion"><i class="bx bx-plus"></i></a>
                     </div>
@@ -94,11 +77,11 @@
                 </div>
                 <div class="col-md-2">
                     <label for="">Fecha Salida</label>
-                    <input type="date" class="form-control" name="fecha_salida" id="fecha_salida" readonly>
+                    <input type="date" class="form-control" name="fecha_salida" id="fecha_salida" >
                 </div>
                 <div class="col-md-2">
                     <label for="">Hora Salida</label>
-                    <input type="time" class="form-control" name="hora_salida" id="hora_salida" readonly>
+                    <input type="time" class="form-control" name="hora_salida" id="hora_salida" >
                 </div>
                 
                 <div class="row">

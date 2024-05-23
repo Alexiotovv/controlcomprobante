@@ -5,9 +5,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SalidacomprobantesController;
 use App\Http\Controllers\ComprobantesController;
+use App\Http\Controllers\ComprobantesarchivosController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\DevolucioncomprobantesController;
-
+use App\Http\Controllers\TempssalidacomprobantesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,6 @@ Route::get('/', function () {
 });
 
 
-
 Route::get('/login',function(){
     return view('usuarios.login');
 })->name('login')->middleware('guest');
@@ -41,12 +41,19 @@ Route::get('/comprobantes/create/',[ComprobantesController::class,'create'])->mi
 Route::post('/comprobantes/store/',[ComprobantesController::class,'store'])->middleware(['auth'])->name('comprobantes.store');
 Route::post('/comprobantes/update/',[ComprobantesController::class,'update'])->middleware(['auth'])->name('comprobantes.update');
 Route::get('/comprobantes/edit/{id}',[ComprobantesController::class,'edit'])->middleware(['auth'])->name('comprobantes.edit');
-
 Route::get('/comprobantes/index/',[ComprobantesController::class,'index'])->middleware(['auth'])->name('comprobantes.index');
-Route::get('/comprobantes/filtrar/{num}/{nom}/{est}/{paq}',[ComprobantesController::class,'filtrar'])->middleware(['auth'])->name('comprobantes.filtrar');
-
 Route::get('/comprobantes/listar/',[ComprobantesController::class,'listar'])->middleware(['auth'])->name('comprobantes.listar');
+Route::get('/comprobantes/validarduplicado/{ano}/{numero}/{siaf}',[ComprobantesController::class,'validarDuplicado'])->middleware(['auth'])->name('comprobantes.validarduplicado');
 //end Comprobantes
+
+//tempSalidaComprobantes
+Route::get('/tempcomprobante/store/{id}',[TempssalidacomprobantesController::class,'store'])->middleware(['auth'])->name('tempcomprobante.store');
+Route::get('/tempcomprobante/destroy/{id}',[TempssalidacomprobantesController::class,'destroy'])->middleware(['auth'])->name('comprobante.destroy');
+Route::get('/tempcomprobante/show/',[TempssalidacomprobantesController::class,'show'])->middleware(['auth'])->name('tempcomprobante.show');
+//Archivos
+Route::get('/archivos/destroy/{id}',[ComprobantesarchivosController::class,'destroy'])->middleware(['auth'])->name('archivos.destroy');
+//EndArchivosComprobantes
+
 
 //SalidaComprobantes
 Route::get('/salidacomprobantes/create',[SalidacomprobantesController::class,'create'])->middleware(['auth'])->name('salidacomprobantes.create');

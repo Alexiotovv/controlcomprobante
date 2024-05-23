@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\salidacomprobantes;
+use App\Models\tempssalidacomprobantes;
 use Illuminate\Http\Request;
 use DB;
 class SalidacomprobantesController extends Controller
@@ -32,17 +33,31 @@ class SalidacomprobantesController extends Controller
      */
     public function store(Request $request)
     {
-        $obj=new salidacomprobantes();
-        $obj->comprobantes_id=request('id_comprobante');
-        $obj->clientes_id=request('cliente');
-        $obj->numero_oficio=request('nro_oficio');
-        $obj->numero_cargo=request('nro_cargo');
-        $obj->folios=request('cant_folios');
-        $obj->fecha_salida=request('fecha_salida');
-        $obj->hora_salida=request('hora_salida');
-        //$obj->salida = true // por defecto guarda True
-        $obj->usuario_id=auth()->user()->id;
-        $obj->save();
+        $comprobantes=DB::table('tempssalidacomprobantes')
+        ->where('tempssalidacomprobantes.user_id','=',auth()->user()->id)
+        ->select('tempssalidacomprobantes.id_comprobante')
+        ->get();
+        $insertData = [];
+        foreach ($comprobantes as $comps) {
+            // Agrega un nuevo array con los datos del comprobante actual al array de datos a insertar
+            $insertData[] = [
+                'comprobantes_id' => $comps->id_comprobante,
+                'clientes_id' => request('cliente'),
+                'numero_oficio' => request('nro_oficio'),
+                'numero_cargo' => request('nro_cargo'),
+                'folios' => request('cant_folios'),
+                'fecha_salida' => request('fecha_salida'),
+                'hora_salida' => request('hora_salida'),
+                'usuario_id' => auth()->user()->id,
+                // 'salida' => true, // Solo si es necesario, aunque parece que es el valor por defecto
+            ];
+        }
+
+        salidacomprobantes::insert($insertData);
+
+        //borrar datos del a tabla temporalcomprobantes
+        tempssalidacomprobantes::where('user_id', auth()->user()->id)->delete();
+
         $data=['Msje'=>'Guardado'];
         return response()->json($data);
     }

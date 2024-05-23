@@ -13,7 +13,7 @@
             </div>            
         </div>
 
-        <form action="">
+        <form action="{{route('comprobantes.index')}}">
             <div class="row">
                 <div class="col-md-2">
                     <label for="">N° Comp.</label>
@@ -32,17 +32,22 @@
                     <input type="text" class="form-control" maxlength="50" id="paquete_comprobante" name="paquete_comprobante">
                 </div>
                 <div class="col-md-2">
+                    <label for="">N° Siaf</label>
+                    <input type="text" class="form-control" maxlength="50" id="siaf_comprobante" name="siaf_comprobante">
+                </div>
+                <div class="col-md-2">
                     <br>
                     <button class="btn btn-primary" id="btnFiltrarComprobantes">Filtrar</button>
                     <div class="spinner-border" role="status" id="spinner_filtrar_comprobantes" style="position: absolute" hidden>
                     </div>
                 </div>
-                
+        </form>
                 <table class="table table-striped" id="DTComprobantes">
                     <thead>
                         <tr>
                             <th>Id</th>
                             <th>Acciones</th>
+                            <th>Archivos</th>
                             <th>N°Comp.</th>
                             <th>Fecha</th>
                             <th>Nombre</th>
@@ -55,20 +60,173 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($comprobantes as $c)
+                            <tr>
+                                <td>{{$c->id}}</td>
+                                <td>
+                                    <a class="btn btn-warning btn-sm btnEditarComprobante"><i class="lni lni-pencil-alt"></i></a>
+                                </td>
+                                <td>
+                                    @foreach ($archivos as $a)
+                                        @if ($a->id_comprobantes==$c->id)
+                                            <table>
+                                                <tbody>
 
+                                                    <tr>
+                                                        <td style="visibility: hidden">{{$a->id}}</td>
+                                                        <td><a target="_blank" href="{{asset('storage/comprobantes/'.$a->nombrearchivo)}}">{{$a->nombrearchivo}}</a></td>
+                                                        <td>
+                                                            <a class="btnModalEliminarArchivo">
+                                                                <i class="lni lni-cross-circle"></i>
+                                                            </a>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <br>
+                                        @endif
+                                    @endforeach
+                                </td>
+                                <td>{{$c->numero}}</td>
+                                <td>{{$c->fecha}}</td>
+                                <td>{{$c->nombre}}</td>
+                                <td>{{$c->importe}}</td>
+                                <td>{{$c->siaf}}</td>
+                                <td>{{$c->fuentefto}}</td>
+                                <td>{{$c->folios}}</td>
+                                <td>{{$c->estante}}</td>
+                                <td>{{$c->paquete}}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
+
+                <nav aria-label="Page navigation example">
+
+                    <!-- En tu vista Blade -->
+@if ($comprobantes->hasPages())
+<ul class="pagination">
+    <!-- Botón para ir a la página anterior -->
+    <li class="page-item {{ $comprobantes->onFirstPage() ? 'disabled' : '' }}">
+        <a class="page-link" href="{{ $comprobantes->previousPageUrl() }}" rel="prev">Anterior</a>
+    </li>
+
+    <!-- Enlace a la primera página -->
+    <li class="page-item {{ $comprobantes->onFirstPage() ? 'disabled' : '' }}">
+        <a class="page-link" href="{{ $comprobantes->url(1) }}">1</a>
+    </li>
+
+    <!-- Enlaces a las páginas intermedias -->
+    @for ($i = 2; $i < $comprobantes->lastPage(); $i++)
+        <li class="page-item {{ $comprobantes->currentPage() == $i ? 'active' : '' }}">
+            <a class="page-link" href="{{ $comprobantes->url($i) }}">{{ $i }}</a>
+        </li>
+    @endfor
+
+    <!-- Enlace a la última página -->
+    <li class="page-item {{ $comprobantes->hasMorePages() ? '' : 'disabled' }}">
+        <a class="page-link" href="{{ $comprobantes->url($comprobantes->lastPage()) }}">
+            {{ $comprobantes->lastPage() }}
+        </a>
+    </li>
+
+    <!-- Enlace a la página siguiente -->
+    <li class="page-item {{ $comprobantes->hasMorePages() ? '' : 'disabled' }}">
+        <a class="page-link" href="{{ $comprobantes->nextPageUrl() }}" rel="next">Siguiente</a>
+    </li>
+</ul>
+@endif
+
+
+
+                </nav>
+
             </div>
-        </form>
+        
     </div>
 </div>
+
 @include('comprobantes.comprobante_edit')
+@include('comprobantes.modal_eliminar')
+
 @endsection
 
-
 @section('extra_js')
-    <script src="../../../app_js/crud.js"></script>    
-    <script src="../../../app_js/comprobantes.js"></script>    
+    <script>
+        $(document).on("click",".btnEditarComprobante",function (e){
+            e.preventDefault();
+            fila = $(this).closest("tr");
+            id= (fila).find('td:eq(0)').text();
+            
+            $("#idComprobante").val(id);
+            $.ajax({
+                type: "GET",
+                url: "/comprobantes/edit/"+id,
+                dataType: "json",
+                success: function (response) {
+                    
+                    $("#edit_numero").val(response.numero);
+                    $("#edit_nombre").val(response.nombre);
+                    $("#edit_importe").val(response.importe);
+                    $("#edit_fecha").val(response.fecha);
+                    $("#edit_siaf").val(response.siaf);
+                    $("#edit_fuentefto").val(response.fuentefto);
+                    $("#edit_folios").val(response.folios);
+                    $("#edit_estante").val(response.estante);
+                    $("#edit_paquete").val(response.paquete);
+                }
+            });
+            $("#modalEditarComprobante").modal('show');
+
+        });
+
+
+        var archivosSeleccionados = [];
+    
+        $('#archivos').change(function() {
+            $('#archivos-seleccionados').empty();
+            
+            archivosSeleccionados = [];
+            archivosSeleccionados = $(this)[0].files;
+            
+            for (var i = 0; i < archivosSeleccionados.length; i++) {
+    
+                var nombreArchivo = $('<label>').text(archivosSeleccionados[i].name);
+    
+                $('#archivos-seleccionados').append(nombreArchivo);
+                $('#archivos-seleccionados').append('<br>');
+            }
+        });
+
+
+
+        $(document).on("click",".btnModalEliminarArchivo",function (e){
+            e.preventDefault();
+            fila = $(this).closest("tr");
+            id= (fila).find('td:eq(0)').text();
+            $("#id_archivo").val(id);
+            $("#modalEliminarArchivo").modal('show')
+        });
+        
+        $("#btnEliminarArchivo").on("click",function (e) { 
+            e.preventDefault();
+            
+            $.ajax({
+                type: "GET",
+                url: "/archivos/destroy/"+$("#id_archivo").val(),
+                dataType: "json",
+                success: function (response) {
+                    $("#modalEliminarArchivo").modal('hide');
+                    location.reload()
+                }
+            });
+
+        });
+
+        
+
+    </script>
     <script src="../../../assets/plugins/notifications/js/lobibox.min.js"></script>
 	<script src="../../../assets/plugins/notifications/js/notifications.min.js"></script>
 	<script src="../../../assets/plugins/notifications/js/notification-custom-script.js"></script>

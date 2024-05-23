@@ -1,29 +1,4 @@
-$(document).on("click",".btnEditarComprobante",function (e){
-    e.preventDefault();
-    fila = $(this).closest("tr");
-    id= (fila).find('td:eq(0)').text();
-    
-    $("#idComprobante").val(id);
-    $.ajax({
-        type: "GET",
-        url: "/comprobantes/edit/"+id,
-        dataType: "json",
-        success: function (response) {
-            
-            $("#numero").val(response.numero);
-            $("#nombre").val(response.nombre);
-            $("#importe").val(response.importe);
-            $("#fecha").val(response.fecha);
-            $("#siaf").val(response.siaf);
-            $("#fuentefto").val(response.fuentefto);
-            $("#folios").val(response.folios);
-            $("#estante").val(response.estante);
-            $("#paquete").val(response.paquete);
-        }
-    });
-    $("#modalEditarComprobante").modal('show');
 
-});
 
 $("#btnActualizarComprobante").on("click",function (e) {
     num=$("#numero").val();
@@ -43,7 +18,7 @@ $("#btnActualizarComprobante").on("click",function (e) {
             $("#modalEditarComprobante").modal('hide');
          },2500)
     }
-    
+        
 });
 
 $("#btnFiltrarComprobantes").on("click",function (e) {
@@ -54,22 +29,7 @@ $("#btnFiltrarComprobantes").on("click",function (e) {
         numero_comprobante=asignarGuion($("#numero_comprobante").val().trim());
         nombre_comprobante=asignarGuion($("#nombre_comprobante").val().trim());
         estante_comprobante=asignarGuion($("#estante_comprobante").val().trim());
-        paquete_comprobante=asignarGuion($("#paquete_comprobante").val().trim());
-
-        // if (numero_comprobante.trim()=='') {
-        //     numero_comprobante='-';
-        // }
-        // if (nombre_comprobante.trim()=='') {
-        //     nombre_comprobante='-';
-        // }
-        // if (estante_comprobante.trim()=='') {
-        //     estante_comprobante='-';
-        // }
-        // if (paquete_comprobante.trim()=='') {
-        //     paquete_comprobante='-';
-        // }
-
-        
+        paquete_comprobante=asignarGuion($("#paquete_comprobante").val().trim());        
 
         $.ajax({
             type: "GET",
@@ -81,10 +41,11 @@ $("#btnFiltrarComprobantes").on("click",function (e) {
             success: function (response) {
                     
                 $("#DTComprobantes tbody").html("");
-                response.forEach(element => {
+                    response['comprobantes'].forEach(element => {
                     $("#DTComprobantes").append('<tr>'+
                     '<td>'+ element.id+'</td>'+
                     '<td><button class="btn btn-warning btn-sm btnEditarComprobante"><li class="bx bx-pencil"></li></button></td>'+
+                    '<td>'+ element.nombrearchivo+'</td>'+
                     '<td>'+ element.numero+'</td>'+
                     '<td>'+ element.fecha+'</td>'+
                     '<td>'+ element.nombre+'</td>'+

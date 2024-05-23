@@ -1,3 +1,35 @@
+//Variable Globales
+ var cant_registros=0
+
+function llenarDTComprobantesSeleccionado(data) {
+    //Poner en la tabla
+    $("#DTComprobantesSeleccionado tbody").html("");
+    data.forEach(element => {
+        cant_registros+=1
+
+        $("#DTComprobantesSeleccionado").append('<tr>'+
+            '<td>'+ element.id +'</td>'+
+            '<td>'+ element.id_comprobante +'</td>'+
+            '<td>'+
+                '<a class="btn btn-danger btn-sm btnEliminarRegistroTemp ><i class="lni lni-pencil-alt">x</i></a>'+
+            '</td>'+
+            '<td>'+ element.numerocomprobante +'</td>'+
+            '<td>'+ element.fecha +'</td>'+
+            '<td>'+ element.nombreempresa +'</td>'+
+            '<td>'+ element.importe +'</td>'+
+            '<td>'+ element.siaf +'</td>'+
+            '<td>'+ element.ftefto +'</td>'+
+            '<td>'+ element.folio +'</td>'+
+            '<td>'+ element.estante +'</td>'+
+            '<td>'+ element.paquete +'</td>'+
+            
+        '</tr>');        
+        
+    });
+}    
+
+
+
 $("#btnActualizasSalidaComprobante").on("click",function (e) {
     e.preventDefault();
     ds=$("#frmEditSalidaComprobante").serialize();
@@ -108,26 +140,28 @@ function BuscarSalidasComprobantes(){
 
 
 $("#btnGuardarSalida").on("click",function (e) {
+    e.preventDefault()
     ofi=$("#nro_oficio").val();
     fol=$("#cant_folios").val();
-    idcom=$("#id_comprobante").val();
-    
-    if (idcom.trim()=='') {
-        e.preventDefault();
-        MensajeError("Seleccione un comprobante para guardar");
-    }else{
-        if (ofi.trim()=='' || fol.trim()=='' || idcom.trim()=='') {
+
+    if (cant_registros>0) {
+        if (ofi.trim()!=='' || fol.trim()!=='') {
             //Muestra que debe llenar los campos el html
-        }else{
             e.preventDefault()
             ds=$("#frmSalidaComprobante").serialize();
             ru="/salidacomprobantes/store"
             mje="Registro Guardado"
-            dt=""
-            GuardarRegistro(ds,ru,mje,dt)
+            dt="DTComprobantesSeleccionado"
+
+            GuardarRegistroSalida(ds,ru,mje,dt)
             //Limpiar Form se encuentra el funcion GuardarRegistro
+        }else{
+            alert("Complete los campos para guardar");    
         }
+    }else{
+        alert("Debe Seleccionar al menos un comprobante");
     }
+
 })
 
 
@@ -178,45 +212,62 @@ $("#btnAgregarInstitucion").on("click",function (e) {
     $("#modalAgregarInstitucion").modal('show');
  })
 
-function LimpiarForm(){
-    $("#id_comprobante").val('');
-    $("#numero_comprobante").val('');
-    $("#fecha").val('');
-    $("#nombre").val('');
-    $("#importe").val('');
-    $("#numero_siaf").val('');
-    $("#fuente_fmto").val('');
-    $("#folios").val('');
-    $("#estante").val('');
-    $("#paquete").val('');
-    $("#nro_cargo").val('');
-    $("#nro_oficio").val('');
-    $("#cant_folios").val('');
-    // $("#fecha_salida").val('');
-    // $("#hora_salida").val('');
 
+$(document).ready(function() {
+    $.ajax({
+        type: "GET",
+        url: "/tempcomprobante/show",
+        dataType: "json",
+        success: function (response) {
+            
+            llenarDTComprobantesSeleccionado(response.data)
+        }
+    });
+    
+});
 
-    $("#modalBuscarComprobante").modal('hide');
-}
-
-
-
-$(document).on("click",".btnSeleccionar",function (e) {
+$(document).on('click','.btnEliminarRegistroTemp',function(e){
     e.preventDefault();
     fila = $(this).closest("tr");
     id= (fila).find('td:eq(0)').text();
-    $("#id_comprobante").val((fila).find('td:eq(0)').text());
-    $("#numero_comprobante").val((fila).find('td:eq(2)').text());
-    $("#fecha").val((fila).find('td:eq(3)').text());
-    $("#nombre").val((fila).find('td:eq(4)').text());
-    $("#importe").val((fila).find('td:eq(5)').text());
-    $("#numero_siaf").val((fila).find('td:eq(6)').text());
-    $("#fuente_fmto").val((fila).find('td:eq(7)').text());
-    $("#folios").val((fila).find('td:eq(8)').text());
-    $("#estante").val((fila).find('td:eq(9)').text());
-    $("#paquete").val((fila).find('td:eq(10)').text());
-    $("#modalBuscarComprobante").modal('hide');
+    $.ajax({
+        type: "GET",
+        url: "/tempcomprobante/destroy/"+id,
+        dataType: "json",
+        success: function (response) {
+            cant_registros-=1
+            llenarDTComprobantesSeleccionado(response.data)   
+        }
+    });
+});
+
+
+$(document).on("click",".btnSeleccionar",function (e) {
+    // e.preventDefault();
+    fila = $(this).closest("tr");
+    id= (fila).find('td:eq(0)').text();
+
+    //insertando en tabla temporal
+    $.ajax({
+        type: "GET",
+        url: "/tempcomprobante/store/"+id,
+        dataType: "json",
+        statusCode: {
+            409: function(data) {
+               alert("Ya se agregó este comprobante");
+            },
+            200: function(data) {
+                cant_registros+=1
+                llenarDTComprobantesSeleccionado(data.data)   
+             },
+        } 
+    });
+
     
+
+    
+
+
 })
 
 $("#modal_nrocomprobante").on("keyup",function (){
@@ -271,3 +322,9 @@ $("#btnBuscarComprobante").on("click",function (e) {
     e.preventDefault();
     $("#modalBuscarComprobante").modal('show');
 })
+function LimpiarForm(){
+    $("#nro_cargo").val("");
+    $("#nro_oficio").val("");
+    $("#cant_folios").val("");
+    cant_registros=0;
+}
