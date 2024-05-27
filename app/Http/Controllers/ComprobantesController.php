@@ -6,9 +6,37 @@ use App\Models\comprobantes;
 use App\Models\comprobantesarchivos;
 use Illuminate\Http\Request;
 use DB;
+
 class ComprobantesController extends Controller
 {
     
+    public function importar_index(Request $request){
+        return view('comprobantes.comprobante_importar');
+    }
+
+
+    public function importar(Request $request){
+        
+        try {
+            //code...
+            // $request->validate([
+            //     'file' => 'required|mimes:sql',
+            // ]);
+            
+    
+            $file = $request->file('file');
+            $filePath = $file->getRealPath();
+    
+            $sql = file_get_contents($filePath);
+            // Ejecutar el script SQL
+            DB::unprepared($sql);
+    
+            return redirect()->back()->with('success', 'Script SQL ejecutado correctamente.');
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+    }
+
 
     public function index(Request $request)
     {   

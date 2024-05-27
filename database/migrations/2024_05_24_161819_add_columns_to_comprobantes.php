@@ -20,8 +20,6 @@ return new class extends Migration
             $table->string('estado', 500)->nullable()->default('');
             $table->string('anhoinventario', 5)->nullable()->default('');
             $table->string('rofidei', 250)->nullable()->default('');
-            
-            
         });
     }
 
