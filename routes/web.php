@@ -43,7 +43,7 @@ Route::post('/comprobantes/update/',[ComprobantesController::class,'update'])->m
 Route::get('/comprobantes/edit/{id}',[ComprobantesController::class,'edit'])->middleware(['auth'])->name('comprobantes.edit');
 Route::get('/comprobantes/index/',[ComprobantesController::class,'index'])->middleware(['auth'])->name('comprobantes.index');
 Route::get('/comprobantes/listar/',[ComprobantesController::class,'listar'])->middleware(['auth'])->name('comprobantes.listar');
-Route::get('/comprobantes/validarduplicado/{ano}/{numero}/{siaf}',[ComprobantesController::class,'validarDuplicado'])->middleware(['auth'])->name('comprobantes.validarduplicado');
+Route::get('/comprobantes/validarduplicado/{ano}/{numero}',[ComprobantesController::class,'validarDuplicado'])->middleware(['auth'])->name('comprobantes.validarduplicado');
 //end Comprobantes
 
 //tempSalidaComprobantes
@@ -52,6 +52,7 @@ Route::get('/tempcomprobante/destroy/{id}',[TempssalidacomprobantesController::c
 Route::get('/tempcomprobante/show/',[TempssalidacomprobantesController::class,'show'])->middleware(['auth'])->name('tempcomprobante.show');
 //Archivos
 Route::get('/archivos/destroy/{id}',[ComprobantesarchivosController::class,'destroy'])->middleware(['auth'])->name('archivos.destroy');
+
 //EndArchivosComprobantes
 
 
@@ -62,6 +63,7 @@ Route::post('/salidacomprobantes/update',[SalidacomprobantesController::class,'u
 Route::get('/salidacomprobantes/index',[SalidacomprobantesController::class,'index'])->middleware(['auth'])->name('salidacomprobantes.index');
 Route::get('/salidacomprobantes/show/{nrocargo}/{nrocomp}/{nrooficio}/{cliente}',[SalidacomprobantesController::class,'show'])->middleware(['auth'])->name('salidacomprobantes.show');
 Route::get('/salidacomprobantes/edit/{id}',[SalidacomprobantesController::class,'edit'])->middleware(['auth'])->name('salidacomprobantes.edit');
+Route::get('/salidacomprobantes/descargar/{inst}/{cargo}/{comp}/{ofic}',[SalidacomprobantesController::class,'descargar'])->middleware(['auth'])->name('tempcomprobante.descargar');
 //EndSalidaComprobantes
 
 

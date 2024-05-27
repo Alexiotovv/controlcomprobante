@@ -65,18 +65,18 @@ $(document).on("click",".btnEditarSalidaComprobante",function (e) {
 
 obtenerclientes();
 
-$("#numero_cargo").on("keyup",function(){
-    BuscarSalidasComprobantes();
-})
-$("#numero_comp").on("keyup",function(){
-    BuscarSalidasComprobantes();
-})
-$("#numero_oficio").on("keyup",function(){
-    BuscarSalidasComprobantes();
-})
-$("#institucion").on("change",function(){
-    BuscarSalidasComprobantes();
-})
+// $("#numero_cargo").on("keyup",function(){
+//     BuscarSalidasComprobantes();
+// })
+// $("#numero_comp").on("keyup",function(){
+//     BuscarSalidasComprobantes();
+// })
+// $("#numero_oficio").on("keyup",function(){
+//     BuscarSalidasComprobantes();
+// })
+// $("#institucion").on("change",function(){
+//     BuscarSalidasComprobantes();
+// })
 
 
 function BuscarSalidasComprobantes(){
@@ -84,6 +84,11 @@ function BuscarSalidasComprobantes(){
     numero_comp=$("#numero_comp").val();
     numero_oficio=$("#numero_oficio").val();
     institucion=$("#institucion").val();
+    
+    if (institucion=='-') {
+        alert("Seleccione una institución para buscar")
+        return false
+    }
     
     if (numero_cargo.trim()=='') {
         numero_cargo='-';
@@ -94,6 +99,7 @@ function BuscarSalidasComprobantes(){
     if (numero_oficio.trim()=='') {
         numero_oficio='-';
     }
+    
     
     $.ajax({
         type: "GET",

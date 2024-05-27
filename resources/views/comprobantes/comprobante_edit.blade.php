@@ -16,7 +16,7 @@
                         <div class="col-md-2">
                             <input type="text"id="idComprobante" name="idComprobante" hidden>
                             <label for="">Número</label>
-                            <input type="text" class="form-control" maxlength="50" id="edit_numero" name="edit_numero" required>
+                            <input type="text" value="-" class="form-control" maxlength="50" id="edit_numero" name="edit_numero" required>
                         </div>
                         <div class="col-md-2">
                             <label for="">Fecha</label>
@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="">Nombre</label>
-                            <input type="text" class="form-control" maxlength="250" id="edit_nombre" name="edit_nombre" required>
+                            <input type="text" value="-" class="form-control" maxlength="250" id="edit_nombre" name="edit_nombre" required>
                         </div>
                         <div class="col-md-2">
                             <label for="">Importe</label>
@@ -44,11 +44,11 @@
                         </div>
                         <div class="col-md-2">
                             <label for="">Estante</label>
-                            <input type="text" class="form-control" maxlength="50" id="edit_estante" name="edit_estante">
+                            <input type="text" value="-" class="form-control" maxlength="50" id="edit_estante" name="edit_estante">
                         </div>
                         <div class="col-md-2">
                             <label for="">Paquete</label>
-                            <input type="text" class="form-control" maxlength="50" id="edit_paquete" name="edit_paquete">
+                            <input type="text" value="-" class="form-control" maxlength="50" id="edit_paquete" name="edit_paquete">
                         </div>
                         <div class="col-md-4">
                             <label for="">Adjuntar + Documentos</label>
@@ -56,6 +56,42 @@
                             <div id="archivos-seleccionados">
                             </div>
                         </div>
+
+
+                        <div class="col-md-2">
+                            <label for="">ItemFile</label>
+                            <input type="text" class="form-control" value="0" name="edit_itemfile" id="edit_itemfile">    
+                        </div>
+                        <div class="col-md-2">
+                            <label for="">TipoDocumento</label>
+                            <input type="text" class="form-control" name="edit_tipodocumento" id="edit_tipodocumento">    
+                        </div>
+                        <div class="col-md-2">
+                            <label for="">Medio</label>
+                            <input type="text" class="form-control" name="edit_medio" id="edit_medio">    
+                        </div>
+                       
+                        <div class="col-md-2">
+                            <label for="">Estado</label>
+                            <input type="text" class="form-control" name="edit_estado" id="edit_estado">    
+                        </div>
+                        <div class="col-md-2">
+                            <label for="">Año Inventario</label>
+                            <input type="number" class="form-control" name="edit_anhoinventario" id="edit_anhoinventario">    
+                        </div>
+                        <div class="col-md-2">
+                            <label for="">RO/FIDEI</label>
+                            <input type="text"  class="form-control" name="edit_rofidei" id="edit_rofidei">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Descripción</label>
+                            <textarea name="edit_descripcion" id="edit_descripcion" cols="20" rows="5" class="form-control">-</textarea>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Observación</label>
+                            <textarea name="edit_observacion" id="edit_observacion" cols="20" rows="5" class="form-control">-</textarea>
+                        </div>
+
 
                     </div>
                     <div class="row">

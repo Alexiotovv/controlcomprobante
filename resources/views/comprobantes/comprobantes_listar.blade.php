@@ -58,7 +58,7 @@
                     </tbody>
                 </table>
                 {{-- {!! $comprobantes->links() !!} --}}
-                {{ $comprobantes->onEachSide(5)->links() }}
+                {{ $comprobantes->onEachSide(100)->links() }}
 
 
             </div>

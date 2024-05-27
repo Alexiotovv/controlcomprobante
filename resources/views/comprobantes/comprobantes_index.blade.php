@@ -13,27 +13,31 @@
             </div>            
         </div>
 
-        <form action="{{route('comprobantes.index')}}">
+        <form action="{{route('comprobantes.index')}}" >
             <div class="row">
                 <div class="col-md-2">
                     <label for="">N° Comp.</label>
-                    <input type="text" class="form-control" maxlength="50" id="numero_comprobante" name="numero_comprobante">
+                    <input type="text" class="form-control" maxlength="100" value="{{$num}}" id="numero_comprobante" name="numero_comprobante">
                 </div>
                 <div class="col-md-2">
                     <label for="">Nombre</label>
-                    <input type="text" class="form-control" maxlength="50" id="nombre_comprobante" name="nombre_comprobante">
+                    <input type="text" class="form-control" maxlength="250" value="{{$nom}}" id="nombre_comprobante" name="nombre_comprobante">
                 </div>
                 <div class="col-md-2">
                     <label for="">Estante</label>
-                    <input type="text" class="form-control" maxlength="50" id="estante_comprobante" name="estante_comprobante">
+                    <input type="text" class="form-control" maxlength="50" value="{{$est}}" id="estante_comprobante" name="estante_comprobante">
                 </div>
                 <div class="col-md-2">
                     <label for="">Paquete</label>
-                    <input type="text" class="form-control" maxlength="50" id="paquete_comprobante" name="paquete_comprobante">
+                    <input type="text" class="form-control" maxlength="50" value="{{$paq}}" id="paquete_comprobante" name="paquete_comprobante">
                 </div>
                 <div class="col-md-2">
                     <label for="">N° Siaf</label>
-                    <input type="text" class="form-control" maxlength="50" id="siaf_comprobante" name="siaf_comprobante">
+                    <input type="text" class="form-control" value="{{$siaf}}" maxlength="50" id="siaf_comprobante" name="siaf_comprobante">
+                </div>
+                <div class="col-md-2">
+                    <label for="">Año Inventario</label>
+                    <input type="text" placeholder="2024" class="form-control" value="{{$anoinv}}" maxlength="20" id="anoinv_comprobante" name="anoinv_comprobante">
                 </div>
                 <div class="col-md-2">
                     <br>
@@ -41,6 +45,7 @@
                     <div class="spinner-border" role="status" id="spinner_filtrar_comprobantes" style="position: absolute" hidden>
                     </div>
                 </div>
+                
         </form>
                 <table class="table table-striped" id="DTComprobantes">
                     <thead>
@@ -105,38 +110,38 @@
                 <nav aria-label="Page navigation example">
 
                     <!-- En tu vista Blade -->
-@if ($comprobantes->hasPages())
-<ul class="pagination">
-    <!-- Botón para ir a la página anterior -->
-    <li class="page-item {{ $comprobantes->onFirstPage() ? 'disabled' : '' }}">
-        <a class="page-link" href="{{ $comprobantes->previousPageUrl() }}" rel="prev">Anterior</a>
-    </li>
+            @if ($comprobantes->hasPages())
+            <ul class="pagination">
+                <!-- Botón para ir a la página anterior -->
+                <li class="page-item {{ $comprobantes->onFirstPage() ? 'disabled' : '' }}">
+                    <a class="page-link" href="{{ $comprobantes->previousPageUrl() }}" rel="prev">Anterior</a>
+                </li>
 
-    <!-- Enlace a la primera página -->
-    <li class="page-item {{ $comprobantes->onFirstPage() ? 'disabled' : '' }}">
-        <a class="page-link" href="{{ $comprobantes->url(1) }}">1</a>
-    </li>
+                <!-- Enlace a la primera página -->
+                <li class="page-item {{ $comprobantes->onFirstPage() ? 'disabled' : '' }}">
+                    <a class="page-link" href="{{ $comprobantes->url(1) }}">1</a>
+                </li>
 
-    <!-- Enlaces a las páginas intermedias -->
-    @for ($i = 2; $i < $comprobantes->lastPage(); $i++)
-        <li class="page-item {{ $comprobantes->currentPage() == $i ? 'active' : '' }}">
-            <a class="page-link" href="{{ $comprobantes->url($i) }}">{{ $i }}</a>
-        </li>
-    @endfor
+                <!-- Enlaces a las páginas intermedias -->
+                @for ($i = 2; $i < $comprobantes->lastPage(); $i++)
+                    <li class="page-item {{ $comprobantes->currentPage() == $i ? 'active' : '' }}">
+                        <a class="page-link" href="{{ $comprobantes->url($i) }}">{{ $i }}</a>
+                    </li>
+                @endfor
 
-    <!-- Enlace a la última página -->
-    <li class="page-item {{ $comprobantes->hasMorePages() ? '' : 'disabled' }}">
-        <a class="page-link" href="{{ $comprobantes->url($comprobantes->lastPage()) }}">
-            {{ $comprobantes->lastPage() }}
-        </a>
-    </li>
+                <!-- Enlace a la última página -->
+                <li class="page-item {{ $comprobantes->hasMorePages() ? '' : 'disabled' }}">
+                    <a class="page-link" href="{{ $comprobantes->url($comprobantes->lastPage()) }}">
+                        {{ $comprobantes->lastPage() }}
+                    </a>
+                </li>
 
-    <!-- Enlace a la página siguiente -->
-    <li class="page-item {{ $comprobantes->hasMorePages() ? '' : 'disabled' }}">
-        <a class="page-link" href="{{ $comprobantes->nextPageUrl() }}" rel="next">Siguiente</a>
-    </li>
-</ul>
-@endif
+                <!-- Enlace a la página siguiente -->
+                <li class="page-item {{ $comprobantes->hasMorePages() ? '' : 'disabled' }}">
+                    <a class="page-link" href="{{ $comprobantes->nextPageUrl() }}" rel="next">Siguiente</a>
+                </li>
+            </ul>
+            @endif
 
 
 
@@ -175,6 +180,15 @@
                     $("#edit_folios").val(response.folios);
                     $("#edit_estante").val(response.estante);
                     $("#edit_paquete").val(response.paquete);
+
+                    $("#edit_itemfile").val(response.itemfile);
+                    $("#edit_tipodocumento").val(response.tipodocumento);
+                    $("#edit_medio").val(response.medio);
+                    $("#edit_estado").val(response.estado);
+                    $("#edit_anhoinventario").val(response.anhoinventario);
+                    $("#edit_rofidei").val(response.rofidei);
+                    $("#edit_descripcion").text(response.descripcion);
+                    $("#edit_   observacion").text(response.observacion);
                 }
             });
             $("#modalEditarComprobante").modal('show');
@@ -223,7 +237,8 @@
             });
 
         });
-
+        
+       
         
 
     </script>

@@ -66,10 +66,10 @@
                             </li>
                             <li> <a href="{{route('comprobantes.create')}}"><i class="bx bx-right-arrow-alt"></i>Registrar Comprobantes</a>
                             </li>
-                            <li> <a href="{{route('comprobantes.index')}}"><i class="bx bx-right-arrow-alt"></i>Filtrar Comprobantes</a>
+                            <li> <a href="{{route('comprobantes.index')}}"><i class="bx bx-right-arrow-alt"></i>Listar Comprobantes</a>
                             </li>
-                            <li> <a href="{{route('comprobantes.listar')}}"><i class="bx bx-right-arrow-alt"></i>Listar Comprobantes</a>
-                            </li>
+                            {{-- <li> <a href="{{route('comprobantes.listar')}}"><i class="bx bx-right-arrow-alt"></i>Listar Comprobantes</a>
+                            </li> --}}
                             {{-- <li> <a href="{{route('clientes.create')}}"><i class="bx bx-right-arrow-alt"></i>Registrar Clientes</a>
                             </li> --}}
                             <li> <a href="{{route('clientes.index')}}"><i class="bx bx-right-arrow-alt"></i>Listar Instituciones</a>

@@ -1,5 +1,10 @@
 @extends('bases.base')
-c
+
+@section('extra_css')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+@endsection
+
 @section('content')
 <div class="card">
     <div class="card-body">
@@ -12,15 +17,15 @@ c
         <form action="">
             <div class="row">
                 <div class="col-md-2">
-                    <label for="">Número de Cargo</label>
+                    <label for="">N° Cargo</label>
                     <input type="number" class="form-control" maxlength="50" id="numero_cargo" name="numero_cargo">
                 </div>
                 <div class="col-md-2">
-                    <label for="">Número de Comprobante</label>
+                    <label for="">N° Comprobante</label>
                     <input type="text" class="form-control" maxlength="50" id="numero_comp" name="numero_comp">
                 </div>
                 <div class="col-md-2">
-                    <label for="">Número de Oficio</label>
+                    <label for="">N° Oficio</label>
                     <input type="text" class="form-control" maxlength="50" id="numero_oficio" name="numero_oficio">
                 </div>
                 <div class="col-md-2">
@@ -32,10 +37,20 @@ c
                         @endforeach
                     </select>
                 </div>
+                <div class="col-md-2">
+                    <label for="">búsqueda</label>
+                    <br>
+                    <button type="button" class="btn btn-primary btn-sm" id="btnBuscarSalida" onclick="BuscarSalidasComprobantes()">Buscar</button>
+                </div>
+
+                <div class="col-md-2">
+                    <label for="">Descargar</label>
+                    <br>
+                    <a type="button" class="btn btn-success btn-sm" id="btnExcel" onclick="descargarExcel()">Excel</a>
+                </div>
                 <div class="col-md-3">
                     <div class="spinner-border" role="status" id="spinner_buscar_salida" style="position: absolute" hidden>
                     </div>
-
                 </div>
                 
                 <table class="table table-striped" id="DTSalidasComprobantes">
@@ -75,6 +90,39 @@ c
     <script src="../../../app_js/salidacomprobante.js"></script>
     <script src="../../../app_js/devolucioncomprobante.js"></script>
     <script>
+
+
+        function descargarExcel() {
+            var inst=$("#institucion").val()
+            var cargo=$("#cargo").val()
+            var comp=$("#comp").val()
+            var ofic=$("#ofic").val()
+            
+            var jsonData=[]
+
+            if (inst.trim()==='-') {
+                alert("Debe Seleccionar al menos una Institución")
+                return false;
+            }
+                
+            $.ajax({
+                type: "GET",
+                url: "/salidacomprobantes/descargar/"+inst+"/"+cargo+"/"+comp+"/"+ofic,
+                dataType: "json",
+                success: function (response) {
+                    
+                    jsonData=response;
+                    var worksheet = XLSX.utils.json_to_sheet(jsonData);
+
+                    var workbook = XLSX.utils.book_new();
+                    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+                    XLSX.writeFile(workbook, 'data.xlsx');
+                }
+            });
+            
+        }
+
         $("#numero_cargo").keypress(function(e) {
             if (e.which === 13) {
                 if ($("#numero_cargo").val().trim() ===! '') {   

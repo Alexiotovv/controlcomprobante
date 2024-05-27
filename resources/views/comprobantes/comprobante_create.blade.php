@@ -70,6 +70,41 @@
                     <div id="archivos-seleccionados">
                     </div>
                 </div>
+
+
+                <div class="col-md-2">
+                    <label for="">ItemFile</label>
+                    <input type="text" class="form-control" name="itemfile" id="itemfile">    
+                </div>
+                <div class="col-md-2">
+                    <label for="">TipoDocumento</label>
+                    <input type="text" class="form-control" name="tipodocumento" id="tipodocumento">    
+                </div>
+                <div class="col-md-2">
+                    <label for="">Medio</label>
+                    <input type="text" class="form-control" name="medio" id="medio">    
+                </div>
+                <div class="col-md-2">
+                    <label for="">Estado</label>
+                    <input type="text" class="form-control" name="estado" id="estado">    
+                </div>
+                <div class="col-md-2">
+                    <label for="">Año Inventario</label>
+                    <input type="number" class="form-control" name="anhoinventario" id="anhoinventario">    
+            
+                </div>
+                <div class="col-md-2">
+                    <label for="">RO/FIDEI</label>
+                    <input type="text"  class="form-control" name="rofidei" id="rofidei">
+                </div>
+                <div class="col-md-4">
+                    <label for="">Descripción</label>
+                    <textarea name="descripcion" id="descripcion" cols="20" rows="5" class="form-control">-</textarea>
+                </div>
+                <div class="col-md-4">
+                    <label for="">Observación</label>
+                    <textarea name="observacion" id="observacion" cols="20" rows="5" class="form-control">-</textarea>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
@@ -99,13 +134,12 @@
     
     $("#btnGuardarComprobantes").on("click",function (e) { 
         var numero = $("#numero").val()
-        var siaf = $("#siaf").val()
-        if (validarDuplicidad($("#fecha").val(),numero,siaf)) {
+        if (validarDuplicidad($("#fecha").val(),numero)) {
             e.preventDefault()
         }
     })
 
-    function validarDuplicidad(fecha,numero,siaf) {
+    function validarDuplicidad(fecha,numero) {
         var fechaObj = new Date(fecha);
         var year = fechaObj.getFullYear();
 
@@ -122,18 +156,17 @@
             let valor_devuelto=false
             $.ajax({
                 type: "GET",
-                url: "/comprobantes/validarduplicado/"+year+"/"+numero+"/"+siaf,
+                url: "/comprobantes/validarduplicado/"+year+"/"+numero,
                 dataType: "json",
                 success: function (response) {
                     if (response.data.existe_num===true) {
                         return(true)
                         alert("Ya existe un numero de comprobante en el año correspondiente")
                     }
-
-                    if(response.data.existe_siaf===true){
-                        return(true)
-                        alert("Ya existe un numero de siaf en el año correspondiente")
-                    }
+                    // if(response.data.existe_siaf===true){
+                    //     return(true)
+                    //     alert("Ya existe un numero de siaf en el año correspondiente")
+                    // }
                 }
             });
 

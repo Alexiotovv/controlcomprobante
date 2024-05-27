@@ -8,9 +8,32 @@ use Illuminate\Http\Request;
 use DB;
 class SalidacomprobantesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
+    public function descargar($ins,$cargo,$comp,$ofic){
+        $operador='=';
+        if ($cargo==''){
+            $cargo=0;
+            $operador='>';
+        }
+        if ($comp=='') {
+            $comp='%';
+        }
+        if ($ofic=='') {
+            $ofic='%';
+        }
+
+        $data=DB::table('comprobantes as c')
+        ->leftjoin('salidacomprobantes as sc', 'c.id','=','sc.comprobantes_id')
+        ->leftjoin('clientes as cl','cl.id','=','sc.clientes_id')
+        ->select('c.*','sc.numero_cargo','sc.numero_oficio','sc.fecha_salida','sc.hora_salida','sc.salida','cl.nombre')
+        ->where('cl.id','=',$ins)
+        // ->where('sc.numero_cargo',$operador,$cargo)
+        // ->where('c.numero','like','%'.$comp.'%')
+        // ->where('sc.numero_oficio','like','%'.$ofic.'%')
+        ->get();
+        return response()->json($data, 200);
+    }
+
     public function index()
     {
         $clientes=DB::table('clientes')
