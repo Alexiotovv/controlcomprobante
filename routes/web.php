@@ -38,8 +38,8 @@ Route::get('/home',function(){
 })->middleware('auth')->name('home');
 
 
-Route::post('/comprobantes/importar/',[ComprobantesController::class,'importar'])->middleware(['auth'])->name('comprobantes.importar');
-Route::get('/comprobantes/importar/index',[ComprobantesController::class,'importar_index'])->middleware(['auth'])->name('comprobantes.importarindex');
+// Route::post('/comprobantes/importar/',[ComprobantesController::class,'importar'])->middleware(['auth'])->name('comprobantes.importar');
+// Route::get('/comprobantes/importar/index',[ComprobantesController::class,'importar_index'])->middleware(['auth'])->name('comprobantes.importarindex');
 
 //Comprobantes
 Route::get('/comprobantes/show/{nrocomp}/{nomemp}',[ComprobantesController::class,'show'])->middleware(['auth'])->name('comprobantes.show');

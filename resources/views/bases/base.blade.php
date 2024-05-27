@@ -68,8 +68,8 @@
                             </li>
                             <li> <a href="{{route('comprobantes.index')}}"><i class="bx bx-right-arrow-alt"></i>Listar Comprobantes</a>
                             </li>
-                            <li> <a href="{{route('comprobantes.importarindex')}}"><i class="bx bx-right-arrow-alt"></i>Importar Comprobantes</a>
-                            </li>
+                            {{-- <li> <a href="{{route('comprobantes.importarindex')}}"><i class="bx bx-right-arrow-alt"></i>Importar Comprobantes</a>
+                            </li> --}}
                             {{-- <li> <a href="{{route('clientes.create')}}"><i class="bx bx-right-arrow-alt"></i>Registrar Clientes</a>
                             </li> --}}
                             <li> <a href="{{route('clientes.index')}}"><i class="bx bx-right-arrow-alt"></i>Listar Instituciones</a>
