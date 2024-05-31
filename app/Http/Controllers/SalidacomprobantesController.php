@@ -9,29 +9,86 @@ use DB;
 class SalidacomprobantesController extends Controller
 {
     
-    public function descargar($ins,$cargo,$comp,$ofic){
-        $operador='=';
-        if ($cargo==''){
-            $cargo=0;
-            $operador='>';
-        }
-        if ($comp=='') {
-            $comp='%';
-        }
-        if ($ofic=='') {
-            $ofic='%';
+    public function descargar($nro_cargo,$nro_comp,$nro_oficio,$institucion){
+        if ($nro_cargo=='-' && $nro_comp=='-' && $nro_oficio=='-' && $institucion=='-'){
+            $obj=DB::table('salidacomprobantes')
+            ->leftjoin('users as usuario_salida','usuario_salida.id','=','salidacomprobantes.usuario_id')
+            ->leftjoin('comprobantes','comprobantes.id','=','salidacomprobantes.comprobantes_id')
+            ->leftjoin('devolucioncomprobantes','devolucioncomprobantes.salidacomprobantes_id','=','salidacomprobantes.id')
+            ->leftjoin('users as usuario_devolucion','usuario_devolucion.id','=','devolucioncomprobantes.usuario_id')
+            ->select('salidacomprobantes.id',
+            'comprobantes.numero',
+            'salidacomprobantes.numero_cargo',
+            'salidacomprobantes.numero_oficio',
+            'salidacomprobantes.folios',
+            'salidacomprobantes.fecha_salida',
+            'salidacomprobantes.hora_salida',
+            'salidacomprobantes.salida',
+            'usuario_salida.name as usuariosalida',
+            'devolucioncomprobantes.fecha_devolucion',
+            'devolucioncomprobantes.hora_devolucion',
+            'usuario_devolucion.name as usuariodevolucion',
+            )
+            ->limit(200)
+            ->get();
+            
+        }else{
+
+            if ($nro_cargo=='-') {
+                $nro_cargo_cond=False;
+            }else{$nro_cargo_cond=True;}
+            if ($nro_comp=='-') {
+                $nro_comp_cond=False;
+            }else{$nro_comp_cond=True;}
+            if ($nro_oficio=='-') {
+                $nro_oficio_cond=False;
+            }else{$nro_oficio_cond=True;}
+            if ($institucion=='-') {
+                $institucion_cond=False;
+                $simbolo='>';
+            }else{
+                $simbolo='=';
+                $institucion_cond=True;
+            }
+
+            $obj=DB::table('salidacomprobantes')
+            ->leftjoin('users as usuario_salida','usuario_salida.id','=','salidacomprobantes.usuario_id')
+            ->leftjoin('comprobantes','comprobantes.id','=','salidacomprobantes.comprobantes_id')
+            ->leftjoin('devolucioncomprobantes','devolucioncomprobantes.salidacomprobantes_id','=','salidacomprobantes.id')
+            ->leftjoin('users as usuario_devolucion','usuario_devolucion.id','=','devolucioncomprobantes.usuario_id')
+            
+            ->when($nro_cargo_cond, function ($query) use ($nro_cargo) {
+                return $query->where('salidacomprobantes.numero_cargo', 'like', '%' . $nro_cargo . '%');
+            })
+            ->when($nro_oficio_cond, function ($query) use ($nro_oficio) {
+                return $query->where('salidacomprobantes.numero_oficio', 'like', '%' . $nro_oficio . '%');
+            })
+            ->when($nro_comp_cond, function ($query) use ($nro_comp) {
+                return $query->where('comprobantes.numero', '=',$nro_comp);
+            })
+            ->when($institucion_cond, function ($query) use ($institucion) {
+                return $query->where('salidacomprobantes.clientes_id', $simbolo, $institucion);
+            })
+            
+            ->select('salidacomprobantes.id',
+            'comprobantes.numero',
+            'salidacomprobantes.numero_cargo',
+            'salidacomprobantes.numero_oficio',
+            'salidacomprobantes.folios',
+            'salidacomprobantes.fecha_salida',
+            'salidacomprobantes.hora_salida',
+            'salidacomprobantes.salida',
+            'usuario_salida.name as usuariosalida',
+            'devolucioncomprobantes.fecha_devolucion',
+            'devolucioncomprobantes.hora_devolucion',
+            'usuario_devolucion.name as usuariodevolucion',
+            )
+            ->limit(200)
+            ->orderBy('salidacomprobantes.id','desc')
+            ->get();
         }
 
-        $data=DB::table('comprobantes as c')
-        ->leftjoin('salidacomprobantes as sc', 'c.id','=','sc.comprobantes_id')
-        ->leftjoin('clientes as cl','cl.id','=','sc.clientes_id')
-        ->select('c.*','sc.numero_cargo','sc.numero_oficio','sc.fecha_salida','sc.hora_salida','sc.salida','cl.nombre')
-        ->where('cl.id','=',$ins)
-        // ->where('sc.numero_cargo',$operador,$cargo)
-        // ->where('c.numero','like','%'.$comp.'%')
-        // ->where('sc.numero_oficio','like','%'.$ofic.'%')
-        ->get();
-        return response()->json($data, 200);
+        return response()->json($obj);
     }
 
     public function index()
@@ -90,47 +147,86 @@ class SalidacomprobantesController extends Controller
      */
     public function show($nro_cargo,$nro_comp,$nro_oficio,$institucion)
     {
-        if ($nro_cargo=='-') {
-            $nro_cargo='%';
-        }
-        if ($nro_comp=='-') {
-            $nro_comp='%';
-        }
-        if ($nro_oficio=='-') {
-            $nro_oficio='%';
-        }
-        if ($institucion=='-') {
-            $institucion=0;
-            $simbolo='>';
+
+        if ($nro_cargo=='-' && $nro_comp=='-' && $nro_oficio=='-' && $institucion=='-'){
+            $obj=DB::table('salidacomprobantes')
+            ->leftjoin('users as usuario_salida','usuario_salida.id','=','salidacomprobantes.usuario_id')
+            ->leftjoin('comprobantes','comprobantes.id','=','salidacomprobantes.comprobantes_id')
+            ->leftjoin('devolucioncomprobantes','devolucioncomprobantes.salidacomprobantes_id','=','salidacomprobantes.id')
+            ->leftjoin('users as usuario_devolucion','usuario_devolucion.id','=','devolucioncomprobantes.usuario_id')
+            ->select('salidacomprobantes.id',
+            'comprobantes.numero',
+            'salidacomprobantes.numero_cargo',
+            'salidacomprobantes.numero_oficio',
+            'salidacomprobantes.folios',
+            'salidacomprobantes.fecha_salida',
+            'salidacomprobantes.hora_salida',
+            'salidacomprobantes.salida',
+            'usuario_salida.name as usuariosalida',
+            'devolucioncomprobantes.fecha_devolucion',
+            'devolucioncomprobantes.hora_devolucion',
+            'usuario_devolucion.name as usuariodevolucion',
+            )
+            ->limit(200)
+            ->orderBy('salidacomprobantes.id','desc')
+            ->get();
+            
         }else{
-            $simbolo='=';
+
+            if ($nro_cargo=='-') {
+                $nro_cargo_cond=False;
+            }else{$nro_cargo_cond=True;}
+            if ($nro_comp=='-') {
+                $nro_comp_cond=False;
+            }else{$nro_comp_cond=True;}
+            if ($nro_oficio=='-') {
+                $nro_oficio_cond=False;
+            }else{$nro_oficio_cond=True;}
+            if ($institucion=='-') {
+                $institucion_cond=False;
+                $simbolo='>';
+            }else{
+                $simbolo='=';
+                $institucion_cond=True;
+            }
+
+            $obj=DB::table('salidacomprobantes')
+            ->leftjoin('users as usuario_salida','usuario_salida.id','=','salidacomprobantes.usuario_id')
+            ->leftjoin('comprobantes','comprobantes.id','=','salidacomprobantes.comprobantes_id')
+            ->leftjoin('devolucioncomprobantes','devolucioncomprobantes.salidacomprobantes_id','=','salidacomprobantes.id')
+            ->leftjoin('users as usuario_devolucion','usuario_devolucion.id','=','devolucioncomprobantes.usuario_id')
+            
+            ->when($nro_cargo_cond, function ($query) use ($nro_cargo) {
+                return $query->where('salidacomprobantes.numero_cargo', 'like', '%' . $nro_cargo . '%');
+            })
+            ->when($nro_oficio_cond, function ($query) use ($nro_oficio) {
+                return $query->where('salidacomprobantes.numero_oficio', 'like', '%' . $nro_oficio . '%');
+            })
+            ->when($nro_comp_cond, function ($query) use ($nro_comp) {
+                return $query->where('comprobantes.numero', '=',$nro_comp);
+            })
+            ->when($institucion_cond, function ($query) use ($institucion) {
+                return $query->where('salidacomprobantes.clientes_id', $simbolo, $institucion);
+            })
+            
+            ->select('salidacomprobantes.id',
+            'comprobantes.numero',
+            'salidacomprobantes.numero_cargo',
+            'salidacomprobantes.numero_oficio',
+            'salidacomprobantes.folios',
+            'salidacomprobantes.fecha_salida',
+            'salidacomprobantes.hora_salida',
+            'salidacomprobantes.salida',
+            'usuario_salida.name as usuariosalida',
+            'devolucioncomprobantes.fecha_devolucion',
+            'devolucioncomprobantes.hora_devolucion',
+            'usuario_devolucion.name as usuariodevolucion',
+
+            )
+            ->limit(200)
+            ->get();
         }
 
-        $obj=DB::table('salidacomprobantes')
-        ->leftjoin('users as usuario_salida','usuario_salida.id','=','salidacomprobantes.usuario_id')
-        ->leftjoin('comprobantes','comprobantes.id','=','salidacomprobantes.comprobantes_id')
-        ->leftjoin('devolucioncomprobantes','devolucioncomprobantes.salidacomprobantes_id','=','salidacomprobantes.id')
-        ->leftjoin('users as usuario_devolucion','usuario_devolucion.id','=','devolucioncomprobantes.usuario_id')
-        ->where('salidacomprobantes.numero_cargo','like','%'.$nro_cargo.'%')
-        ->where('salidacomprobantes.numero_oficio','like','%'.$nro_oficio.'%')
-        ->where('comprobantes.numero','like','%'.$nro_comp.'%')
-        ->where('salidacomprobantes.clientes_id',$simbolo,$institucion)
-        ->select('salidacomprobantes.id',
-        'comprobantes.numero',
-        'salidacomprobantes.numero_cargo',
-        'salidacomprobantes.numero_oficio',
-        'salidacomprobantes.folios',
-        'salidacomprobantes.fecha_salida',
-        'salidacomprobantes.hora_salida',
-        'salidacomprobantes.salida',
-        'usuario_salida.name as usuariosalida',
-        'devolucioncomprobantes.fecha_devolucion',
-        'devolucioncomprobantes.hora_devolucion',
-        'usuario_devolucion.name as usuariodevolucion',
-
-        )
-        ->limit(200)
-        ->get();
         return response()->json($obj);
     }
 
