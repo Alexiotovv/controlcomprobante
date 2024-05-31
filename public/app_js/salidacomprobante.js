@@ -84,11 +84,7 @@ function BuscarSalidasComprobantes(){
     numero_comp=$("#numero_comp").val();
     numero_oficio=$("#numero_oficio").val();
     institucion=$("#institucion").val();
-    
-    if (institucion=='-') {
-        alert("Seleccione una institución para buscar")
-        return false
-    }
+
     
     if (numero_cargo.trim()=='') {
         numero_cargo='-';
