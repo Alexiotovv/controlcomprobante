@@ -16,7 +16,7 @@
         <form action="{{route('comprobantes.index')}}" >
             <div class="row">
                 <div class="col-md-2">
-                    <label for="">N° Comp.</label>
+                    <label for="">N° Comp</label>
                     <input type="text" class="form-control" maxlength="100" value="{{$num}}" id="numero_comprobante" name="numero_comprobante">
                 </div>
                 <div class="col-md-2">
